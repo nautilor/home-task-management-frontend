@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 20vh;
+  min-width: 70vh;
+  border: 1.5px solid #F5F5F533;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.userinfo {
+  padding-left: 3vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.username {
+  color: #fefefe;
+  font-size: 24px;
+}
+
+.userpoints {
+  color: #fefefe55;
+  font-size: 18px;
+}
