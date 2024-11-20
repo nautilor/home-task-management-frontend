@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.BACKEND_URL as string;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export interface Completion {
   id: string;
