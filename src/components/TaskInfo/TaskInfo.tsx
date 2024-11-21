@@ -1,4 +1,4 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Badge, Button, Text } from "@chakra-ui/react";
 import { Task, User } from "../Api";
 import "./TaskInfo.scss";
 import { LuCheckCircle, LuUndo } from "react-icons/lu";
@@ -19,6 +19,9 @@ const TaskInfo = (props: TaskInfoProps) => {
     const userHasCompletedTask = task.completions.find(
       (completion) => completion.user.id === user.id,
     );
+    const numberOfCompletions = task.completions.filter(
+      (completion) => completion.user.id === user.id,
+    ).length;
     return (
       <div className="taskusersection">
         <Button
@@ -40,6 +43,7 @@ const TaskInfo = (props: TaskInfoProps) => {
             variant={"subtle"}
           >
             <LuUndo />
+            {numberOfCompletions}
           </Button>
         )}
       </div>
@@ -47,14 +51,25 @@ const TaskInfo = (props: TaskInfoProps) => {
   };
 
   return (
-    <div className="task-container">
+    <div
+      className="task-container"
+      style={{
+        borderLeft: `1em solid ${task.category.color}`,
+      }}
+    >
       <div className="taskinfo">
         <Text fontSize={"xl"} fontWeight={"semibold"}>
           {task.name}
         </Text>
-        <Text fontSize={"lg"} className="taskcategory">
+        <Badge
+          style={{
+            marginTop: "0.2em",
+            backgroundColor: `${task.category.color}55`,
+            color: task.category.color,
+          }}
+        >
           {task.category.name}
-        </Text>
+        </Badge>
         <Text fontSize={"md"} className="taskpoints" color={"blue.500"}>
           {task.points} punti
         </Text>

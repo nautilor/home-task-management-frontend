@@ -15,10 +15,12 @@ export interface Task {
   category: {
     id: string;
     name: string;
+    color: string;
   };
   points: number;
   frequency: string;
   completions: Completion[];
+  color: string;
 }
 
 export interface User {
@@ -30,6 +32,7 @@ export interface User {
 export interface Category {
   id: string;
   name: string;
+  color: string;
 }
 
 export const Api = {
