@@ -31,7 +31,7 @@ const TaskPage = () => {
 
   return (
     <div>
-      <Header />
+      <Header hideAddButton={true} />
       <div className={"user-info-container"}>{renderUsers()}</div>
       <TaskContainer users={users} onReload={onReload} tasks={tasks} />
     </div>
