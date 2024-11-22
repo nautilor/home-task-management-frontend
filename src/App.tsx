@@ -1,10 +1,10 @@
 import "./App.css";
-import TaskHome from "./components/Pages/TaskHome";
+import CategoryPage from "./components/Pages/CategoryPage/CategoryPage";
 
 function App() {
   return (
     <div className="App">
-      <TaskHome />
+      <CategoryPage />
     </div>
   );
 }
