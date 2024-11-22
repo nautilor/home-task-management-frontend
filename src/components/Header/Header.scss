@@ -3,10 +3,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 7em;
+  margin-bottom: 1em;
   @media (max-width: 768px) {
     flex-direction: column;
-    height: 10em;
     justify-content: space-around;
   }
 }
