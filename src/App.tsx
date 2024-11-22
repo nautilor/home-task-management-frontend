@@ -1,10 +1,11 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import CategoryPage from "./components/Pages/CategoryPage/CategoryPage";
+import { router } from "./components/Router";
 
 function App() {
   return (
     <div className="App">
-      <CategoryPage />
+      <RouterProvider router={router} />
     </div>
   );
 }

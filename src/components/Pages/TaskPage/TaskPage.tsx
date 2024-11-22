@@ -1,24 +1,26 @@
-import UserInfo from "../UserInfo/UserInfo";
-import Header from "../Header/Header";
+import UserInfo from "../../UserInfo/UserInfo";
+import Header from "../../Header/Header";
 import { useEffect, useState } from "react";
-import { Api, Task, User } from "../Api.ts";
-import TaskContainer from "../TaskContainer/TaskContainer.tsx";
-import "./TaskHome.scss";
+import { Api, Task, User } from "../../Api.ts";
+import TaskContainer from "../../TaskContainer/TaskContainer.tsx";
+import "./TaskPage.scss";
+import { useParams } from "react-router-dom";
 
-const TaskHome = () => {
+const TaskPage = () => {
+  const { categoryId } = useParams();
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const loadData = async () => {
     const users = await Api.getUsers();
-    const tasks = await Api.getTasks();
+    const tasks = await Api.getTasks(categoryId);
     setUsers(users);
     setTasks(tasks);
   };
 
   useEffect(() => {
     loadData();
-  }, []);
+  });
 
   const onReload = async () => {
     await loadData();
@@ -36,4 +38,4 @@ const TaskHome = () => {
   );
 };
 
-export default TaskHome;
+export default TaskPage;

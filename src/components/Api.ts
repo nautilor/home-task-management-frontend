@@ -36,8 +36,9 @@ export interface Category {
 }
 
 export const Api = {
-  getTasks: async (): Promise<Task[]> => {
-    const response = await fetch(`${BACKEND_URL}/tasks`);
+  getTasks: async (categoryId?: string): Promise<Task[]> => {
+    const query = categoryId ? `?categoryId=${categoryId}` : "";
+    const response = await fetch(`${BACKEND_URL}/tasks${query}`);
     return response.json();
   },
 
