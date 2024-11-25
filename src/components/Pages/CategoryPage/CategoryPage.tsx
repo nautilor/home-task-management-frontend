@@ -38,7 +38,6 @@ const CategoryPage = () => {
             Tutte
           </Text>
         </Box>
-        
         <div
           className="add-category-container"
           onClick={() => navigate("/insert")}
