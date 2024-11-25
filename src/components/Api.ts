@@ -30,7 +30,7 @@ export interface User {
 }
 
 export interface Category {
-  id: string;
+  id?: string;
   name: string;
   color: string;
 }
@@ -74,11 +74,11 @@ export const Api = {
     return response.json();
   },
 
-  addCategory: async (name: string): Promise<Category> => {
+  addCategory: async (category: Category): Promise<Category> => {
     const response = await fetch(`${BACKEND_URL}/categories`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify(category),
     });
     return response.json();
   },

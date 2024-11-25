@@ -39,7 +39,10 @@ const CategoryPage = () => {
           </Text>
         </Box>
         
-        <div className="add-category-container">
+        <div
+          className="add-category-container"
+          onClick={() => navigate("/insert")}
+        >
           <Icon fontSize={50} color="whiteAlpha.300">
             <LuPlusCircle size={50} />
           </Icon>
