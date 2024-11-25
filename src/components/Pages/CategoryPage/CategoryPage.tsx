@@ -27,17 +27,19 @@ const CategoryPage = () => {
         {categories.map((category) => (
           <CategoryInfo key={category.id} category={category} />
         ))}
-        <Box
-          bgGradient="to-r"
-          gradientFrom="teal.800"
-          gradientTo="teal.700"
-          className="view-all-category-container"
-          onClick={() => navigate("/category/")}
-        >
-          <Text fontSize="2xl" fontWeight={"semibold"} color="whiteAlpha.700">
-            Tutte
-          </Text>
-        </Box>
+        {categories.length > 1 && (
+          <Box
+            bgGradient="to-r"
+            gradientFrom="teal.800"
+            gradientTo="teal.700"
+            className="view-all-category-container"
+            onClick={() => navigate("/category/")}
+          >
+            <Text fontSize="2xl" fontWeight={"semibold"} color="whiteAlpha.700">
+              Tutte
+            </Text>
+          </Box>
+        )}
         <div
           className="add-category-container"
           onClick={() => navigate("/insert")}
