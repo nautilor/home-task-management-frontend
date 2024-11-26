@@ -34,7 +34,7 @@ const InsertCategory = () => {
         <Input
           value={name}
           onChange={onNameChange}
-          placeholder="Inserisci il nome della categoria"
+          placeholder="Nome della categoria"
         />
       </FieldRoot>
       <FieldRoot style={{ marginTop: "1rem" }}>

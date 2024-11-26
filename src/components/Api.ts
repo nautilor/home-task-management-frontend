@@ -9,30 +9,25 @@ export interface Completion {
   timestamp: string;
 }
 
-export interface Task {
-  id: string;
+export interface Category {
+  id?: string;
   name: string;
-  category: {
-    id: string;
-    name: string;
-    color: string;
-  };
+  color: string;
+}
+
+export interface Task {
+  id?: string;
+  name: string;
+  category: Category;
   points: number;
   frequency: string;
-  completions: Completion[];
-  color: string;
+  completions?: Completion[];
 }
 
 export interface User {
   id: string;
   name: string;
   points: number;
-}
-
-export interface Category {
-  id?: string;
-  name: string;
-  color: string;
 }
 
 export const Api = {
