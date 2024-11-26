@@ -144,7 +144,7 @@ const InsertTask = () => {
           </NumberInput.Control>
           <NumberInput.Input
             min={1}
-            value={points}
+            value={points || ""}
             onChange={onPointsChange}
             placeholder="Punti"
           />
