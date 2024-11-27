@@ -16,10 +16,10 @@ const TaskInfo = (props: TaskInfoProps) => {
   const { task, users } = props;
 
   const renderUserActions = (user: User) => {
-    const userHasCompletedTask = task.completions.find(
+    const userHasCompletedTask = task.completions!.find(
       (completion) => completion.user.id === user.id,
     );
-    const numberOfCompletions = task.completions.filter(
+    const numberOfCompletions = task.completions!.filter(
       (completion) => completion.user.id === user.id,
     ).length;
     return (

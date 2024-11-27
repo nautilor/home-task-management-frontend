@@ -11,12 +11,12 @@ const TaskContainer = (props: TaskContainerProps) => {
   const { tasks, users, onReload } = props;
 
   const onTaskCompleted = async (task: Task, user: User) => {
-    await Api.addCompletion(task.id, user.id);
+    await Api.addCompletion(task.id!, user.id);
     onReload();
   };
 
   const onTaskUndo = async (task: Task, user: User) => {
-    const completion = task.completions.find((c) => c.user.id === user.id);
+    const completion = task.completions!.find((c) => c.user.id === user.id);
     if (!completion) {
       return;
       // TODO: Add error handling
