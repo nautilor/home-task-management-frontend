@@ -1,6 +1,6 @@
 import UserInfo from "../../UserInfo/UserInfo";
 import Header from "../../Header/Header";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Api, Task, User } from "../../Api.ts";
 import TaskContainer from "../../TaskContainer/TaskContainer.tsx";
 import "./TaskPage.scss";
@@ -11,16 +11,16 @@ const TaskPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     const users = await Api.getUsers();
     const tasks = await Api.getTasks(categoryId);
     setUsers(users);
     setTasks(tasks);
-  };
+  }, [categoryId]);
 
   useEffect(() => {
     loadData();
-  });
+  }, [loadData]);
 
   const onReload = async () => {
     await loadData();
