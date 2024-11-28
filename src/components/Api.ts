@@ -1,12 +1,9 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export interface Completion {
+export interface User {
   id: string;
-  user: {
-    id: string;
-    name: string;
-  };
-  timestamp: string;
+  name: string;
+  points: number;
 }
 
 export interface Category {
@@ -24,10 +21,11 @@ export interface Task {
   completions?: Completion[];
 }
 
-export interface User {
+export interface Completion {
   id: string;
-  name: string;
-  points: number;
+  user: User;
+  task: Task;
+  timestamp: string;
 }
 
 export const Api = {
