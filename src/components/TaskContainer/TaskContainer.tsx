@@ -1,5 +1,6 @@
 import { Api, Task, User } from "../Api";
 import TaskInfo from "../TaskInfo/TaskInfo";
+import { toaster, Toaster } from "../ui/toaster";
 
 interface TaskContainerProps {
   users: User[];
@@ -18,8 +19,12 @@ const TaskContainer = (props: TaskContainerProps) => {
   const onTaskUndo = async (task: Task, user: User) => {
     const completion = task.completions!.find((c) => c.user.id === user.id);
     if (!completion) {
+      toaster.create({
+        title: "Impossibile annullare il premio",
+        type: "error",
+        duration: 1500,
+      });
       return;
-      // TODO: Add error handling
     }
     await Api.deleteCompletion(completion.id);
     onReload();
@@ -35,6 +40,7 @@ const TaskContainer = (props: TaskContainerProps) => {
 
   return (
     <div>
+      <Toaster />
       {tasks.map((task) => (
         <TaskInfo
           key={task.id}

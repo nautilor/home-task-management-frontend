@@ -145,6 +145,9 @@ export const Api = {
         timestamp: new Date().toISOString(),
       }),
     });
+    if (response.status !== 200) {
+      throw new Error("L'utente non ha abbastanza punti");
+    }
     return response.json();
   },
 

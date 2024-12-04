@@ -1,5 +1,6 @@
 import { Api, Reward, User } from "../Api";
 import RewardInfo from "../RewardInfo/RewardInfo";
+import { Toaster, toaster } from "../ui/toaster";
 
 interface RewardContainerProps {
   users: User[];
@@ -11,16 +12,30 @@ const RewardContainer = (props: RewardContainerProps) => {
   const { rewards, users, onReload } = props;
 
   const onRewardRedeemed = async (reward: Reward, user: User) => {
-    console.log("Reward redeemed", reward, user);
-    await Api.addRewardedPoints(reward, user);
-    onReload();
+    try {
+      await Api.addRewardedPoints(reward, user);
+      onReload();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Errore durante la richiesta";
+      console.error(message);
+      toaster.create({
+        title: message,
+        type: "error",
+        duration: 1500,
+      });
+    }
   };
 
   const onRewardUndo = async (reward: Reward, user: User) => {
     const rewardPoints = reward.rewarded!.find((r) => r.user.id === user.id);
     if (!rewardPoints) {
+      toaster.create({
+        title: "Impossibile annullare il premio",
+        type: "error",
+        duration: 1500,
+      });
       return;
-      // TODO: Add error handling
     }
     await Api.deleteRewardedPoints(rewardPoints.id);
     onReload();
@@ -36,6 +51,7 @@ const RewardContainer = (props: RewardContainerProps) => {
 
   return (
     <div>
+      <Toaster />
       {rewards.map((reward) => (
         <RewardInfo
           key={reward.id}
