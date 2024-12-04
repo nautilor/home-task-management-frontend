@@ -1,23 +1,22 @@
 import UserInfo from "../../UserInfo/UserInfo";
 import Header from "../../Header/Header";
 import { useCallback, useEffect, useState } from "react";
-import { Api, Task, User } from "../../Api.ts";
-import TaskContainer from "../../TaskContainer/TaskContainer.tsx";
-import "./TaskPage.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Api, Reward, User } from "../../Api.ts";
+import "./RewardPage.scss";
+import { useNavigate } from "react-router-dom";
+import RewardContainer from "@/components/RewardContainer/RewardContainer.tsx";
 
-const TaskPage = () => {
+const RewardPage = () => {
   const navigate = useNavigate();
-  const { categoryId } = useParams();
   const [users, setUsers] = useState<User[]>([]);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [rewards, setRewards] = useState<Reward[]>([]);
 
   const loadData = useCallback(async () => {
     const users = await Api.getUsers();
-    const tasks = await Api.getTasks(categoryId);
+    const rewards = await Api.getRewards();
     setUsers(users);
-    setTasks(tasks);
-  }, [categoryId]);
+    setRewards(rewards);
+  }, []);
 
   useEffect(() => {
     loadData();
@@ -36,9 +35,9 @@ const TaskPage = () => {
     <div>
       <Header hideAddButton={true} goBack={goHome} />
       <div className={"user-info-container"}>{renderUsers()}</div>
-      <TaskContainer users={users} onReload={onReload} tasks={tasks} />
+      <RewardContainer users={users} onReload={onReload} rewards={rewards} />
     </div>
   );
 };
 
-export default TaskPage;
+export default RewardPage;

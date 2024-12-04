@@ -22,7 +22,8 @@ const CategoryPage = () => {
 
   return (
     <div>
-      <Header hideAddButton={true} />
+      <Header hideRewards={false} />
+
       <div className="categories-list">
         {categories.map((category) => (
           <CategoryInfo key={category.id} category={category} />

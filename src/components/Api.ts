@@ -10,6 +10,7 @@ export interface Category {
   id?: string;
   name: string;
   color: string;
+  completions?: Completion[];
 }
 
 export interface Task {
@@ -26,6 +27,21 @@ export interface Completion {
   user: User;
   task: Task;
   timestamp: string;
+}
+
+export interface Reward {
+  id: string;
+  name: string;
+  color: string;
+  points: number;
+  rewarded: RewardedPoints[];
+}
+
+export interface RewardedPoints {
+  id: string;
+  timestamp: string;
+  user: User;
+  reward: Reward;
 }
 
 export const Api = {
@@ -89,16 +105,62 @@ export const Api = {
     await fetch(`${BACKEND_URL}/categories/${id}`, { method: "DELETE" });
   },
 
-  addCompletion: async (
-    taskId: string,
-    userId: string,
-  ): Promise<Completion> => {
+  getRewards: async (): Promise<Reward[]> => {
+    const response = await fetch(`${BACKEND_URL}/rewards`);
+    return response.json();
+  },
+
+  addReward: async (reward: Reward): Promise<Reward> => {
+    const response = await fetch(`${BACKEND_URL}/rewards`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reward),
+    });
+    return response.json();
+  },
+
+  updateReward: async (reward: Reward): Promise<Reward> => {
+    const response = await fetch(`${BACKEND_URL}/rewards/${reward.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reward),
+    });
+    return response.json();
+  },
+
+  deleteReward: async (id: string): Promise<void> => {
+    await fetch(`${BACKEND_URL}/rewards/${id}`, { method: "DELETE" });
+  },
+
+  addRewardedPoints: async (
+    reward: Reward,
+    user: User,
+  ): Promise<RewardedPoints> => {
+    const response = await fetch(`${BACKEND_URL}/rewarded`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        reward,
+        user,
+        timestamp: new Date().toISOString(),
+      }),
+    });
+    return response.json();
+  },
+
+  deleteRewardedPoints: async (rewardedPointsId: string): Promise<void> => {
+    await fetch(`${BACKEND_URL}/rewarded/${rewardedPointsId}`, {
+      method: "DELETE",
+    });
+  },
+
+  addCompletion: async (task: Task, user: User): Promise<Completion> => {
     const response = await fetch(`${BACKEND_URL}/completions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        task: { id: taskId },
-        user: { id: userId },
+        task,
+        user,
         timestamp: new Date().toISOString(),
       }),
     });

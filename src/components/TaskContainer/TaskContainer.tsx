@@ -11,7 +11,7 @@ const TaskContainer = (props: TaskContainerProps) => {
   const { tasks, users, onReload } = props;
 
   const onTaskCompleted = async (task: Task, user: User) => {
-    await Api.addCompletion(task.id!, user.id);
+    await Api.addCompletion(task, user);
     onReload();
   };
 
