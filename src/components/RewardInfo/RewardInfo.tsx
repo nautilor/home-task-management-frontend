@@ -70,7 +70,12 @@ const RewardInfo = (props: RewardInfoProps) => {
         >
           Ricompensa
         </Badge>
-        <Text fontSize={"md"} className="taskpoints" color={"blue.500"}>
+        <Text
+          fontSize={"md"}
+          fontWeight={"medium"}
+          className="taskpoints"
+          color={"red.500"}
+        >
           {reward.points} punti
         </Text>
         <div className="taskusersections">
