@@ -1,6 +1,6 @@
 import { Api, Reward, User } from "../Api";
 import RewardInfo from "../RewardInfo/RewardInfo";
-import { Toaster, toaster } from "../ui/toaster";
+import { toaster } from "../ui/toaster";
 
 interface RewardContainerProps {
   users: User[];
@@ -51,7 +51,6 @@ const RewardContainer = (props: RewardContainerProps) => {
 
   return (
     <div>
-      <Toaster />
       {rewards.map((reward) => (
         <RewardInfo
           key={reward.id}

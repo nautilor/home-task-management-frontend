@@ -89,6 +89,11 @@ export const Api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(category),
     });
+    if (response.status !== 200) {
+      if (response.status === 400)
+        throw new Error("Nome categoria già esistente");
+      throw new Error("Errore durante il salvataggio");
+    }
     return response.json();
   },
 
@@ -145,8 +150,10 @@ export const Api = {
         timestamp: new Date().toISOString(),
       }),
     });
-    if (response.status !== 200) {
-      throw new Error("L'utente non ha abbastanza punti");
+    if (!response.ok) {
+      if (response.status === 400)
+        throw new Error("L'utente non ha punti sufficienti");
+      throw new Error("Errore durante il salvataggio");
     }
     return response.json();
   },

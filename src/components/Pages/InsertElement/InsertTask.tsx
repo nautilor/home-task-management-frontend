@@ -82,7 +82,6 @@ const InsertTask = () => {
       (c) => c.id === categoryId,
     )!;
     setCategory(selectedCategory);
-    console.log(selectedCategory);
   };
 
   const saveTask = async () => {

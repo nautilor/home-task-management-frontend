@@ -1,4 +1,5 @@
 import { Api } from "@/components/Api";
+import { toaster } from "@/components/ui/toaster";
 import { Button, FieldRoot, Input, Text } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
 import { LuSave } from "react-icons/lu";
@@ -21,8 +22,19 @@ const InsertCategory = () => {
       setNameError(true);
       return;
     }
-    await Api.addCategory({ name, color });
-    navigate("/");
+    try {
+      await Api.addCategory({ name, color });
+      navigate("/");
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Errore durante il salvataggio";
+      toaster.create({
+        title: message,
+        type: "error",
+      });
+    }
   };
 
   return (
