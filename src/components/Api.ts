@@ -178,8 +178,13 @@ export const Api = {
   },
 
   deleteCompletion: async (completionId: string): Promise<void> => {
-    await fetch(`${BACKEND_URL}/completions/${completionId}`, {
+    const response = await fetch(`${BACKEND_URL}/completions/${completionId}`, {
       method: "DELETE",
     });
+    if (!response.ok) {
+      if (response.status === 400)
+        throw new Error("L'utente non ha punti sufficienti");
+      throw new Error("Errore durante il salvataggio");
+    }
   },
 };

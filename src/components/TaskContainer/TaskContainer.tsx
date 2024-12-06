@@ -26,8 +26,19 @@ const TaskContainer = (props: TaskContainerProps) => {
       });
       return;
     }
-    await Api.deleteCompletion(completion.id);
-    onReload();
+    try {
+      await Api.deleteCompletion(completion.id);
+      onReload();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Errore durante la richiesta";
+      console.error(message);
+      toaster.create({
+        title: message,
+        type: "error",
+        duration: 1500,
+      });
+    }
   };
 
   const onTaskDelete = async (task: Task) => {
