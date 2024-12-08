@@ -30,7 +30,7 @@ export interface Completion {
 }
 
 export interface Reward {
-  id: string;
+  id?: string;
   name: string;
   color: string;
   points: number;
@@ -121,6 +121,12 @@ export const Api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reward),
     });
+    if (!response.ok) {
+      if (response.status === 400)
+        throw new Error("L'utente non ha punti sufficienti");
+      throw new Error("Errore durante il salvataggio");
+    }
+
     return response.json();
   },
 
@@ -130,6 +136,12 @@ export const Api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reward),
     });
+    if (!response.ok) {
+      if (response.status === 400)
+        throw new Error("L'utente non ha punti sufficienti");
+      throw new Error("Errore durante il salvataggio");
+    }
+
     return response.json();
   },
 
