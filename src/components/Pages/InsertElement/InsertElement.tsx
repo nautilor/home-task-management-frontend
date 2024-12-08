@@ -14,9 +14,9 @@ const InsertElement = () => {
       <Header hideAddButton={true} goBack={goHome} />
       <Tabs.Root defaultValue={"category"}>
         <Tabs.List>
-          <Tabs.Trigger value="category">Category</Tabs.Trigger>
+          <Tabs.Trigger value="category">Categoria</Tabs.Trigger>
           <Tabs.Trigger value="task">Task</Tabs.Trigger>
-          <Tabs.Trigger value="reward">Reward</Tabs.Trigger>
+          <Tabs.Trigger value="reward">Ricompensa</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="category">
           <InsertCategory />
