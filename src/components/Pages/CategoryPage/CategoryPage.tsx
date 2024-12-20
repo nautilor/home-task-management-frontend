@@ -2,7 +2,7 @@ import { Api, Category } from "@/components/Api";
 import CategoryInfo from "@/components/CategoryInfo/CategoryInfo";
 import Header from "@/components/Header/Header";
 import { useEffect, useState } from "react";
-import { LuPlusCircle } from "react-icons/lu";
+import { HiOutlinePlusCircle } from "react-icons/hi2";
 import { Box, Icon, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import "./CategoryPage.scss";
@@ -46,7 +46,7 @@ const CategoryPage = () => {
           onClick={() => navigate("/insert")}
         >
           <Icon fontSize={50} color="whiteAlpha.300">
-            <LuPlusCircle size={50} />
+            <HiOutlinePlusCircle size={50} />
           </Icon>
         </div>
       </div>

@@ -11,6 +11,24 @@
 }
 
 .header-edit-button {
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+  margin-right: 2rem;
+  color: #FFFFFF;
+  &:hover {
+    color: #FFFFFFAA;
+  }
+  &:active {
+    color: #FFFFFFAA;
+  }
+  @media (max-width: 768px) {
+    margin-right: 1rem;
+  }
+}
+
+.header-fullscreen-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +41,6 @@
     color: #FFFFFFAA;
   }
 }
-
 .header-rewards-button {
   display: flex;
   justify-content: center;

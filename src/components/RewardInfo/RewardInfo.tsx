@@ -1,7 +1,8 @@
 import { Badge, Button, Text } from "@chakra-ui/react";
 import { Reward, User } from "../Api";
 import "./RewardInfo.scss";
-import { LuCheckCircle, LuUndo } from "react-icons/lu";
+import { LuUndo } from "react-icons/lu";
+import { FiCheckCircle } from "react-icons/fi";
 
 interface RewardInfoProps {
   task: Reward;
@@ -31,7 +32,7 @@ const RewardInfo = (props: RewardInfoProps) => {
           colorPalette={"green"}
           variant={"subtle"}
         >
-          <LuCheckCircle />
+          <FiCheckCircle />
           {user.name}
         </Button>
         {userHasRewards && (

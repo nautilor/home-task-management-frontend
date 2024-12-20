@@ -1,7 +1,8 @@
 import { Badge, Button, Text } from "@chakra-ui/react";
 import { Task, User } from "../Api";
 import "./TaskInfo.scss";
-import { LuCheckCircle, LuUndo } from "react-icons/lu";
+import { LuUndo } from "react-icons/lu";
+import { FiCheckCircle } from "react-icons/fi";
 
 interface TaskInfoProps {
   task: Task;
@@ -31,7 +32,7 @@ const TaskInfo = (props: TaskInfoProps) => {
           colorPalette={"green"}
           variant={"subtle"}
         >
-          <LuCheckCircle />
+          <FiCheckCircle />
           {user.name}
         </Button>
         {userHasCompletedTask && (

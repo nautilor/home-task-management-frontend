@@ -1,5 +1,11 @@
 import { Button, Text } from "@chakra-ui/react";
-import { LuArrowLeft, LuPencil, LuPlus, LuTrophy } from "react-icons/lu";
+import {
+  LuArrowLeft,
+  LuFullscreen,
+  LuPencil,
+  LuPlus,
+  LuTrophy,
+} from "react-icons/lu";
 import "./Header.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +21,17 @@ const Header = (props: HeaderProps) => {
   const navigate = useNavigate();
   const hideAddButton = props.hideAddButton ?? true;
   const hideRewards = props.hideRewards ?? true;
+
+  const toggleFullSceen = (): void => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
   return (
     <div className={"header-container"}>
       <div className="header-left-controls">
@@ -46,6 +63,12 @@ const Header = (props: HeaderProps) => {
         )}
         <div className="header-edit-button" onClick={props.onEditClick}>
           <LuPencil size={25} />
+        </div>
+        <div
+          className="header-fullscreen-button"
+          onClick={() => toggleFullSceen()}
+        >
+          <LuFullscreen size={25} />
         </div>
       </div>
       {!hideAddButton && (
