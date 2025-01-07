@@ -5,6 +5,7 @@ import { Api, Task, User } from "../../Api.ts";
 import TaskContainer from "../../TaskContainer/TaskContainer.tsx";
 import "./TaskPage.scss";
 import { useNavigate, useParams } from "react-router-dom";
+import { householdPaths } from "@/components/Router.ts";
 
 const TaskPage = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const TaskPage = () => {
     await loadData();
   };
 
-  const goHome = () => navigate("/");
+  const goHome = () => navigate(householdPaths.home);
 
   const renderUsers = () =>
     users.map((user) => <UserInfo key={user.id} user={user} />);

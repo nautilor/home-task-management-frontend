@@ -2,6 +2,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { Category } from "../Api";
 import "./CategoryInfo.scss";
 import { useNavigate } from "react-router-dom";
+import { householdPaths } from "../Router";
 
 interface CategoryInfoProps {
   category: Category;
@@ -15,7 +16,9 @@ const CategoryInfo = (props: CategoryInfoProps) => {
       bgGradient="to-r"
       gradientFrom={category.color.concat("11")}
       gradientTo={category.color.concat("AA")}
-      onClick={() => navigate(`/category/${category.id}`)}
+      onClick={() =>
+        navigate(householdPaths.category.replace(":categoryId", category.id!))
+      }
       className="category-container"
       style={{ backgroundColor: category.color.concat("AA") }}
     >

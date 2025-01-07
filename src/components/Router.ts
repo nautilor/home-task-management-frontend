@@ -4,21 +4,28 @@ import TaskPage from "./Pages/TaskPage/TaskPage";
 import InsertElement from "./Pages/InsertElement/InsertElement";
 import RewardPage from "./Pages/RewardPage/RewardPage";
 
+export const householdPaths = {
+  home: "/household",
+  category: "/household/category/:categoryId?",
+  insert: "/household/insert",
+  rewards: "/household/rewards",
+};
+
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: householdPaths.home,
     Component: CategoryPage,
   },
   {
-    path: "/category/:categoryId?",
+    path: householdPaths.category,
     Component: TaskPage,
   },
   {
-    path: "/insert",
+    path: householdPaths.insert,
     Component: InsertElement,
   },
   {
-    path: "/rewards",
+    path: householdPaths.rewards,
     Component: RewardPage,
   },
 ]);

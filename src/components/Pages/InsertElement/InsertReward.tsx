@@ -1,4 +1,5 @@
 import { Api, Reward } from "@/components/Api";
+import { householdPaths } from "@/components/Router";
 import { toaster } from "@/components/ui/toaster";
 import { Button, FieldRoot, Input, Text, NumberInput } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
@@ -48,7 +49,7 @@ const InsertReward = () => {
         rewarded: [],
       };
       await Api.addReward(reward);
-      navigate("/");
+      navigate(householdPaths.home);
     } catch (error) {
       const message =
         error instanceof Error

@@ -6,6 +6,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi2";
 import { Box, Icon, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import "./CategoryPage.scss";
+import { householdPaths } from "@/components/Router";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
@@ -34,7 +35,9 @@ const CategoryPage = () => {
             gradientFrom="teal.800"
             gradientTo="teal.700"
             className="view-all-category-container"
-            onClick={() => navigate("/category/")}
+            onClick={() =>
+              navigate(householdPaths.category.replace(":categoryId", ""))
+            }
           >
             <Text fontSize="2xl" fontWeight={"semibold"} color="whiteAlpha.700">
               Tutte
@@ -43,7 +46,7 @@ const CategoryPage = () => {
         )}
         <div
           className="add-category-container"
-          onClick={() => navigate("/insert")}
+          onClick={() => navigate(householdPaths.insert)}
         >
           <Icon fontSize={50} color="whiteAlpha.300">
             <HiOutlinePlusCircle size={50} />

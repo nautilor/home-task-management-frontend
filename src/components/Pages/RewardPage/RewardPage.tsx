@@ -5,6 +5,7 @@ import { Api, Reward, User } from "../../Api.ts";
 import "./RewardPage.scss";
 import { useNavigate } from "react-router-dom";
 import RewardContainer from "@/components/RewardContainer/RewardContainer.tsx";
+import { householdPaths } from "@/components/Router.ts";
 
 const RewardPage = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const RewardPage = () => {
     await loadData();
   };
 
-  const goHome = () => navigate("/");
+  const goHome = () => navigate(householdPaths.home);
 
   const renderUsers = () =>
     users.map((user) => <UserInfo key={user.id} user={user} />);

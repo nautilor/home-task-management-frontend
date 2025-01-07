@@ -5,10 +5,11 @@ import Header from "@/components/Header/Header";
 import "./InsertElement.scss";
 import { useNavigate } from "react-router-dom";
 import InsertReward from "./InsertReward";
+import { householdPaths } from "@/components/Router";
 
 const InsertElement = () => {
   const navigate = useNavigate();
-  const goHome = () => navigate("/");
+  const goHome = () => navigate(householdPaths.home);
   return (
     <div>
       <Header hideAddButton={true} goBack={goHome} />

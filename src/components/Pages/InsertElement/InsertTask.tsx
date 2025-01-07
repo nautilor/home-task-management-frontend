@@ -1,4 +1,5 @@
 import { Api, Category, Task } from "@/components/Api";
+import { householdPaths } from "@/components/Router";
 import {
   Button,
   createListCollection,
@@ -105,7 +106,7 @@ const InsertTask = () => {
     };
     try {
       await Api.addTask(task);
-      navigate("/");
+      navigate(householdPaths.home);
     } catch (e) {
       console.error(e);
     }

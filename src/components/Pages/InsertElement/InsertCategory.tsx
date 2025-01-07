@@ -1,4 +1,5 @@
 import { Api } from "@/components/Api";
+import { householdPaths } from "@/components/Router";
 import { toaster } from "@/components/ui/toaster";
 import { Button, FieldRoot, Input, Text } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
@@ -24,7 +25,7 @@ const InsertCategory = () => {
     }
     try {
       await Api.addCategory({ name, color });
-      navigate("/");
+      navigate(householdPaths.home);
     } catch (error) {
       const message =
         error instanceof Error

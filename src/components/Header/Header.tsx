@@ -9,6 +9,7 @@ import {
 import "./Header.scss";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { householdPaths } from "../Router";
 
 interface HeaderProps {
   onAddClick?: () => void;
@@ -60,7 +61,7 @@ const Header = (props: HeaderProps) => {
           {!hideRewards && (
             <div
               className="header-rewards-button"
-              onClick={() => navigate("/rewards")}
+              onClick={() => navigate(householdPaths.rewards)}
             >
               <LuTrophy size={25} />
             </div>
