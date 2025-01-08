@@ -53,9 +53,6 @@ const Header = (props: HeaderProps) => {
               <LuArrowLeft size={25} />
             </div>
           )}
-          <Text fontSize="xl" fontWeight={"bold"}>
-            Faccende Domestiche
-          </Text>
         </div>
         <div className="header-left-controls">
           {!hideRewards && (

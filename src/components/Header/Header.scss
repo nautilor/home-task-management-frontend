@@ -12,7 +12,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
-  padding-top: 1em;
+  // TODO: I don't know if the below padding-top is really needed
+  //padding-top: 1em;
   @media (max-width: 768px) {
     flex-direction: row;
     justify-content: space-between;

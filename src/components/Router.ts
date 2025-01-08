@@ -3,6 +3,7 @@ import CategoryPage from "./Pages/CategoryPage/CategoryPage";
 import TaskPage from "./Pages/TaskPage/TaskPage";
 import InsertElement from "./Pages/InsertElement/InsertElement";
 import RewardPage from "./Pages/RewardPage/RewardPage";
+import HomePage from "./Pages/HomePage/HomePage";
 
 export const householdPaths = {
   home: "/household",
@@ -11,7 +12,15 @@ export const householdPaths = {
   rewards: "/household/rewards",
 };
 
+export const genericPaths = {
+  home: "/",
+};
+
 export const router = createBrowserRouter([
+  {
+    path: genericPaths.home,
+    Component: HomePage,
+  },
   {
     path: householdPaths.home,
     Component: CategoryPage,
