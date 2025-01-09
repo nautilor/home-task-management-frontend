@@ -7,10 +7,11 @@ import { toaster } from "../ui/toaster";
 interface FridgeInfoProps {
   item: FridgeItem;
   onReload: () => Promise<void>;
+  onEdit: (item: FridgeItem) => void;
 }
 
 const FridgeInfo = (props: FridgeInfoProps) => {
-  const { item, onReload } = props;
+  const { item, onReload, onEdit } = props;
   const onQuantityChange = async (value: number) => {
     if (item.quantity === 1 && value === -1) {
       return;
@@ -42,14 +43,7 @@ const FridgeInfo = (props: FridgeInfoProps) => {
             </Icon>
           </HStack>
           <Icon color="blue.500" size="xl">
-            <FiEdit
-              onClick={() => {
-                toaster.create({
-                  title: "Modifica non ancora implementata",
-                  type: "warning",
-                });
-              }}
-            />
+            <FiEdit onClick={() => onEdit(item)} />
           </Icon>
           <Icon color="red.500" size="xl">
             <FiTrash

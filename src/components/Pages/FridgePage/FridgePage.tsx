@@ -11,7 +11,9 @@ const FridgePage = () => {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [item, setItem] = useState<FridgeItem>();
   const [fridgeItems, setFridgeItems] = useState<FridgeItem[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -33,9 +35,29 @@ const FridgePage = () => {
     }
   };
 
+  const resetForm = () => {
+    setName("");
+    setDescription("");
+    setQuantity(1);
+    setItem(undefined);
+    setIsEditing(false);
+  };
+  const onIsEditingChange = (item: FridgeItem) => {
+    setIsEditing(true);
+    setName(item.name);
+    setDescription(item.description);
+    setItem(item);
+    setQuantity(item.quantity);
+  };
+
   const saveFridgeItem = async () => {
-    const index: number = fridgeItems ? fridgeItems.length : 0;
+    const index: number = isEditing
+      ? item!.index
+      : fridgeItems
+        ? fridgeItems.length
+        : 0;
     const fridgeItem: FridgeItem = {
+      id: item?.id,
       name,
       quantity,
       index,
@@ -43,11 +65,14 @@ const FridgePage = () => {
     };
 
     try {
-      await Api.addFridgeItem(fridgeItem);
+      if (!isEditing) {
+        await Api.addFridgeItem(fridgeItem);
+      } else {
+        await Api.updateFridgeItem(fridgeItem);
+      }
       await loadData();
-      setName("");
-      setDescription("");
-      setQuantity(1);
+      resetForm();
+      setIsEditing(false);
     } catch (error: unknown) {
       const message =
         error instanceof Error
@@ -75,7 +100,8 @@ const FridgePage = () => {
       <div className="fridge-container">
         <Box
           marginTop={5}
-          backgroundColor="gray.900"
+          borderColor="gray.800"
+          borderWidth={1.5}
           padding={5}
           borderRadius={8}
           className="fridge-form"
@@ -105,21 +131,39 @@ const FridgePage = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <Button colorPalette="teal" onClick={saveFridgeItem}>
-                Aggiungi
+              <Button
+                colorPalette={isEditing ? "purple" : "cyan"}
+                onClick={saveFridgeItem}
+              >
+                {isEditing ? "Modifica" : "Aggiungi"}
               </Button>
             </HStack>
           </VStack>
         </Box>
       </div>
-      <Box marginTop={5} borderRadius={8} backgroundColor="gray.900">
+      <Box
+        marginTop={5}
+        borderRadius={8}
+        borderColor="gray.800"
+        borderWidth={1.5}
+        borderLeftWidth={"1em"}
+        borderLeftColor={"blue.500"}
+      >
         {!fridgeItems.length && (
           <Text color="gray.500" fontStyle={"italic"} padding={5}>
             Non ci sono prodotti in frigo, aggiungine uno!
           </Text>
         )}
-        {fridgeItems.map((item) => (
-          <FridgeInfo key={item.index} item={item} onReload={loadData} />
+        {fridgeItems.map((item, index) => (
+          <>
+            <FridgeInfo
+              key={item.index}
+              item={item}
+              onEdit={onIsEditingChange}
+              onReload={loadData}
+            />
+            {index !== fridgeItems.length - 1 && <hr />}
+          </>
         ))}
       </Box>
     </div>

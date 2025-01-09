@@ -25,6 +25,7 @@ const Header = (props: HeaderProps) => {
   const hideAddButton = props.hideAddButton ?? true;
   const hideRewards = props.hideRewards ?? true;
   const children = props.children;
+  const hideEditButton = props.onEditClick === undefined;
 
   const toggleFullSceen = (): void => {
     if (!document.fullscreenElement) {
@@ -63,9 +64,11 @@ const Header = (props: HeaderProps) => {
               <LuTrophy size={25} />
             </div>
           )}
-          <div className="header-edit-button" onClick={props.onEditClick}>
-            <LuPencil size={25} />
-          </div>
+          {!hideEditButton && (
+            <div className="header-edit-button" onClick={props.onEditClick}>
+              <LuPencil size={25} />
+            </div>
+          )}
           <div
             className="header-fullscreen-button"
             onClick={() => toggleFullSceen()}
