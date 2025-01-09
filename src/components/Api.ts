@@ -44,6 +44,14 @@ export interface RewardedPoints {
   reward: Reward;
 }
 
+export interface FridgeItem {
+  id?: string;
+  name: string;
+  quantity: number;
+  index: number;
+  description: string;
+}
+
 export const Api = {
   getTasks: async (categoryId?: string): Promise<Task[]> => {
     const query = categoryId ? `?categoryId=${categoryId}` : "";
@@ -198,5 +206,35 @@ export const Api = {
         throw new Error("L'utente non ha punti sufficienti");
       throw new Error("Errore durante il salvataggio");
     }
+  },
+
+  getFridgeItems: async (): Promise<FridgeItem[]> => {
+    const response = await fetch(`${BACKEND_URL}/fridge`);
+    return response.json();
+  },
+
+  addFridgeItem: async (item: FridgeItem): Promise<FridgeItem> => {
+    const response = await fetch(`${BACKEND_URL}/fridge`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante il salvataggio");
+    }
+    return response.json();
+  },
+
+  updateFridgeItem: async (item: FridgeItem): Promise<FridgeItem> => {
+    const response = await fetch(`${BACKEND_URL}/fridge/${item.id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    });
+    return response.json();
+  },
+
+  deleteFridgeItem: async (id: string): Promise<void> => {
+    await fetch(`${BACKEND_URL}/fridge/${id}`, { method: "DELETE" });
   },
 };

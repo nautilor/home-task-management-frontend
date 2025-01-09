@@ -4,12 +4,17 @@ import TaskPage from "./Pages/TaskPage/TaskPage";
 import InsertElement from "./Pages/InsertElement/InsertElement";
 import RewardPage from "./Pages/RewardPage/RewardPage";
 import HomePage from "./Pages/HomePage/HomePage";
+import FridgePage from "./Pages/FridgePage/FridgePage";
 
 export const householdPaths = {
   home: "/household",
   category: "/household/category/:categoryId?",
   insert: "/household/insert",
   rewards: "/household/rewards",
+};
+
+export const fridgePaths = {
+  home: "/fridge",
 };
 
 export const genericPaths = {
@@ -36,5 +41,9 @@ export const router = createBrowserRouter([
   {
     path: householdPaths.rewards,
     Component: RewardPage,
+  },
+  {
+    path: fridgePaths.home,
+    Component: FridgePage,
   },
 ]);

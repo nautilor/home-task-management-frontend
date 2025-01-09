@@ -1,10 +1,9 @@
 import { Box, HStack, Icon } from "@chakra-ui/react";
 import "./HomePage.scss";
 import { useNavigate } from "react-router-dom";
-import { householdPaths } from "@/components/Router";
+import { fridgePaths, householdPaths } from "@/components/Router";
 import { FaHouseUser } from "react-icons/fa6";
 import { FaSnowflake } from "react-icons/fa";
-import { toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header/Header";
 
 const HomePage = () => {
@@ -31,12 +30,7 @@ const HomePage = () => {
             gradientFrom="blue.700"
             gradientTo="blue.100"
             className="home-function-button"
-            onClick={() => {
-              toaster.create({
-                title: "Funzione non ancora implementata",
-                type: "warning",
-              });
-            }}
+            onClick={() => navigate(fridgePaths.home)}
           >
             <Icon color="black" fontSize={100}>
               <FaSnowflake />
