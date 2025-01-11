@@ -3,12 +3,9 @@ import Header from "../../Header/Header";
 import { useCallback, useEffect, useState } from "react";
 import { Api, Reward, User } from "../../Api.ts";
 import "./RewardPage.scss";
-import { useNavigate } from "react-router-dom";
 import RewardContainer from "@/components/RewardContainer/RewardContainer.tsx";
-import { householdPaths } from "@/components/Router.ts";
 
 const RewardPage = () => {
-  const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>([]);
   const [rewards, setRewards] = useState<Reward[]>([]);
 
@@ -27,14 +24,12 @@ const RewardPage = () => {
     await loadData();
   };
 
-  const goHome = () => navigate(householdPaths.home);
-
   const renderUsers = () =>
     users.map((user) => <UserInfo key={user.id} user={user} />);
 
   return (
     <div>
-      <Header hideAddButton={true} goBack={goHome}>
+      <Header hideAddButton={true} goBack={true}>
         <div className={"user-info-container"}>{renderUsers()}</div>
       </Header>
       <RewardContainer users={users} onReload={onReload} rewards={rewards} />

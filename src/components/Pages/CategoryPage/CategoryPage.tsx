@@ -6,7 +6,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi2";
 import { Box, Icon, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import "./CategoryPage.scss";
-import { genericPaths, householdPaths } from "@/components/Router";
+import { householdPaths } from "@/components/Router";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const CategoryPage = () => {
 
   return (
     <div>
-      <Header hideRewards={false} goBack={() => navigate(genericPaths.home)} />
+      <Header hideRewards={false} goBack={true} />
 
       <div className="categories-list">
         {categories.map((category) => (

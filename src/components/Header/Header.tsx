@@ -15,7 +15,7 @@ interface HeaderProps {
   onAddClick?: () => void;
   hideAddButton?: boolean;
   onEditClick?: () => void;
-  goBack?: () => void;
+  goBack?: boolean;
   hideRewards?: boolean;
   children?: React.ReactNode;
 }
@@ -26,6 +26,7 @@ const Header = (props: HeaderProps) => {
   const hideRewards = props.hideRewards ?? true;
   const children = props.children;
   const hideEditButton = props.onEditClick === undefined;
+  const goBack = props.goBack ?? false;
 
   const toggleFullSceen = (): void => {
     if (!document.fullscreenElement) {
@@ -42,14 +43,13 @@ const Header = (props: HeaderProps) => {
       <div className={"header-container"}>
         <div className="header-left-controls">
           {props.goBack ? (
-            <div className="header-back-button" onClick={props.goBack}>
+            <div className="header-back-button" onClick={() => navigate(-1)}>
               <LuArrowLeft size={25} />
             </div>
           ) : (
             <div
               className="header-back-button"
               style={{ color: "transparent" }}
-              onClick={props.goBack}
             >
               <LuArrowLeft size={25} />
             </div>

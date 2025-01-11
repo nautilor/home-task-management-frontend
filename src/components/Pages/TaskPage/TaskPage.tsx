@@ -4,11 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import { Api, Task, User } from "../../Api.ts";
 import TaskContainer from "../../TaskContainer/TaskContainer.tsx";
 import "./TaskPage.scss";
-import { useNavigate, useParams } from "react-router-dom";
-import { householdPaths } from "@/components/Router.ts";
+import { useParams } from "react-router-dom";
 
 const TaskPage = () => {
-  const navigate = useNavigate();
   const { categoryId } = useParams();
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -28,14 +26,12 @@ const TaskPage = () => {
     await loadData();
   };
 
-  const goHome = () => navigate(householdPaths.home);
-
   const renderUsers = () =>
     users.map((user) => <UserInfo key={user.id} user={user} />);
 
   return (
     <div>
-      <Header hideAddButton={true} goBack={goHome}>
+      <Header hideAddButton={true} goBack={true}>
         <div className={"user-info-container"}>{renderUsers()}</div>
       </Header>
       <TaskContainer users={users} onReload={onReload} tasks={tasks} />

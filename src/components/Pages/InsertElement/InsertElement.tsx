@@ -3,16 +3,12 @@ import InsertCategory from "./InsertCategory";
 import InsertTask from "./InsertTask";
 import Header from "@/components/Header/Header";
 import "./InsertElement.scss";
-import { useNavigate } from "react-router-dom";
 import InsertReward from "./InsertReward";
-import { householdPaths } from "@/components/Router";
 
 const InsertElement = () => {
-  const navigate = useNavigate();
-  const goHome = () => navigate(householdPaths.home);
   return (
     <div>
-      <Header hideAddButton={true} goBack={goHome} />
+      <Header hideAddButton={true} goBack={true} />
       <Tabs.Root defaultValue={"category"}>
         <Tabs.List>
           <Tabs.Trigger value="category">Categoria</Tabs.Trigger>

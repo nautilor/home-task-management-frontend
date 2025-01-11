@@ -6,8 +6,6 @@ import Header from "@/components/Header/Header";
 import { Api, FridgeItem } from "@/components/Api";
 import { toaster } from "@/components/ui/toaster";
 import FridgeInfo from "@/components/FridgeInfo/FridgeInfo";
-import { useNavigate } from "react-router-dom";
-import { genericPaths } from "@/components/Router";
 
 const FridgePage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -16,8 +14,6 @@ const FridgePage = () => {
   const [item, setItem] = useState<FridgeItem>();
   const [fridgeItems, setFridgeItems] = useState<FridgeItem[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
@@ -100,7 +96,7 @@ const FridgePage = () => {
 
   return (
     <div>
-      <Header goBack={() => navigate(genericPaths.home)} />
+      <Header goBack={true} />
       <div className="fridge-container">
         <Box
           marginTop={5}
