@@ -29,7 +29,7 @@ const RewardPage = () => {
 
   return (
     <div>
-      <Header hideAddButton={true} goBack={true}>
+      <Header goBack={true}>
         <div className={"user-info-container"}>{renderUsers()}</div>
       </Header>
       <RewardContainer users={users} onReload={onReload} rewards={rewards} />

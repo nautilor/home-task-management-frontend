@@ -8,7 +8,7 @@ import InsertReward from "./InsertReward";
 const InsertElement = () => {
   return (
     <div>
-      <Header hideAddButton={true} goBack={true} />
+      <Header goBack={true} />
       <Tabs.Root defaultValue={"category"}>
         <Tabs.List>
           <Tabs.Trigger value="category">Categoria</Tabs.Trigger>
