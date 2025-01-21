@@ -2,7 +2,6 @@ import { VStack, Box, Text, HStack, Icon } from "@chakra-ui/react";
 import { Api, FridgeItem } from "@/components/Api";
 import "./FridgeInfo.scss";
 import { FiEdit, FiMinusCircle, FiPlusCircle, FiTrash } from "react-icons/fi";
-import { toaster } from "../ui/toaster";
 
 interface FridgeInfoProps {
   item: FridgeItem;
@@ -13,7 +12,7 @@ interface FridgeInfoProps {
 const FridgeInfo = (props: FridgeInfoProps) => {
   const { item, onReload, onEdit } = props;
   const onQuantityChange = async (value: number) => {
-    if (item.quantity === 1 && value === -1) {
+    if (item.quantity === 0 && value === -1) {
       return;
     }
     const quantity: number = item.quantity + value;
@@ -21,21 +20,25 @@ const FridgeInfo = (props: FridgeInfoProps) => {
     await Api.updateFridgeItem(item);
     await onReload();
   };
+
+  const backgroundColor = item.quantity === 0 ? "gray.900" : "black";
+  const mainTextColor = item.quantity === 0 ? "gray.500" : "white";
+  const descriptionColor = item.quantity === 0 ? "gray.700" : "gray.500";
+  const minusColor = item.quantity === 0 ? "gray" : "white";
+
   return (
-    <Box padding="5">
+    <Box padding="5" backgroundColor={backgroundColor}>
       <HStack justify="space-between">
         <VStack alignItems={"flex-start"}>
-          <Text fontWeight={"semibold"}>{item.name}</Text>
-          <Text color="gray.500">{item.description || "-"}</Text>
+          <Text fontWeight={"semibold"} color={mainTextColor}>
+            {item.name}
+          </Text>
+          <Text color={descriptionColor}>{item.description || "-"}</Text>
         </VStack>
         <HStack gap={6}>
           <HStack gap={4}>
-            <Icon color="white" size="xl">
-              <FiMinusCircle
-                size={25}
-                onClick={() => onQuantityChange(-1)}
-                color={item.quantity === 1 ? "gray" : "white"}
-              />
+            <Icon color={minusColor} size="xl">
+              <FiMinusCircle size={25} onClick={() => onQuantityChange(-1)} />
             </Icon>
             <Text fontWeight={"semibold"}>{item.quantity}</Text>
             <Icon color="white" size="xl">

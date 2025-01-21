@@ -89,10 +89,19 @@ const FridgePage = () => {
 
   const onQuantityChange = (value: number) => {
     const newValue: number = quantity + value;
-    if (newValue < 1) {
-      setQuantity(1);
+    const minValue = isEditing ? 0 : 1;
+    if (newValue < minValue) {
+      setQuantity(minValue);
     } else {
       setQuantity(newValue);
+    }
+  };
+
+  const getMinusButtonColor = () => {
+    if (isEditing) {
+      return quantity === 0 ? "gray" : "white";
+    } else {
+      return quantity === 1 ? "gray" : "white";
     }
   };
 
@@ -120,7 +129,7 @@ const FridgePage = () => {
                 <FiMinusCircle
                   size={25}
                   onClick={() => onQuantityChange(-1)}
-                  color={quantity === 1 ? "gray" : "white"}
+                  color={getMinusButtonColor()}
                 />
                 <Text fontSize={"xl"} fontWeight={"semibold"}>
                   {quantity}
@@ -150,7 +159,7 @@ const FridgePage = () => {
         borderColor="gray.800"
         borderWidth={1.5}
         borderLeftWidth={"1em"}
-        borderLeftColor={"blue.500"}
+        borderLeftColor={"blue.600"}
       >
         {!fridgeItems.length && (
           <Text color="gray.500" fontStyle={"italic"} padding={5}>
