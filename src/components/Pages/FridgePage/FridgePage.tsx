@@ -1,6 +1,6 @@
 import { Box, Button, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import "./FridgePage.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import Header from "@/components/Header/Header";
 import { Api, FridgeItem } from "@/components/Api";
@@ -14,6 +14,7 @@ const FridgePage = () => {
   const [item, setItem] = useState<FridgeItem>();
   const [fridgeItems, setFridgeItems] = useState<FridgeItem[]>([]);
   const [isEditing, setIsEditing] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     loadData();
@@ -48,6 +49,7 @@ const FridgePage = () => {
     setDescription(item.description);
     setItem(item);
     setQuantity(item.quantity);
+    inputRef.current?.focus();
   };
 
   const saveFridgeItem = async () => {
@@ -109,6 +111,7 @@ const FridgePage = () => {
           <VStack>
             <HStack gap={7} width={"100%"}>
               <Input
+                ref={inputRef}
                 placeholder="Nome prodotto"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
