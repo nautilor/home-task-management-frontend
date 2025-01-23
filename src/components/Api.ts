@@ -44,12 +44,20 @@ export interface RewardedPoints {
   reward: Reward;
 }
 
+export interface FridgeCategory {
+  id?: string;
+  name: string;
+  color: string;
+  items?: FridgeItem[];
+}
+
 export interface FridgeItem {
   id?: string;
   name: string;
   quantity: number;
   index: number;
   description: string;
+  category: FridgeCategory;
 }
 
 export const Api = {
@@ -209,12 +217,12 @@ export const Api = {
   },
 
   getFridgeItems: async (): Promise<FridgeItem[]> => {
-    const response = await fetch(`${BACKEND_URL}/fridge`);
+    const response = await fetch(`${BACKEND_URL}/fridge/items/`);
     return response.json();
   },
 
   addFridgeItem: async (item: FridgeItem): Promise<FridgeItem> => {
-    const response = await fetch(`${BACKEND_URL}/fridge`, {
+    const response = await fetch(`${BACKEND_URL}/fridge/items/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
@@ -226,7 +234,7 @@ export const Api = {
   },
 
   updateFridgeItem: async (item: FridgeItem): Promise<FridgeItem> => {
-    const response = await fetch(`${BACKEND_URL}/fridge/${item.id}`, {
+    const response = await fetch(`${BACKEND_URL}/fridge/items/${item.id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
@@ -235,6 +243,44 @@ export const Api = {
   },
 
   deleteFridgeItem: async (id: string): Promise<void> => {
-    await fetch(`${BACKEND_URL}/fridge/${id}`, { method: "DELETE" });
+    await fetch(`${BACKEND_URL}/fridge/items/${id}`, { method: "DELETE" });
+  },
+  getFridgeCategories: async (): Promise<FridgeCategory[]> => {
+    const response = await fetch(`${BACKEND_URL}/fridge/categories`);
+    return response.json();
+  },
+  addFridgeCategory: async (
+    category: FridgeCategory,
+  ): Promise<FridgeCategory> => {
+    const response = await fetch(`${BACKEND_URL}/fridge/categories`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(category),
+    });
+    if (response.status !== 200) {
+      if (response.status === 400)
+        throw new Error("Nome categoria già esistente");
+      throw new Error("Errore durante il salvataggio");
+    }
+    return response.json();
+  },
+  updateFridgeCategory: async (
+    id: string,
+    name: string,
+  ): Promise<FridgeCategory> => {
+    const response = await fetch(`${BACKEND_URL}/fridge/categories/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    return response.json();
+  },
+  deleteFridgeCategory: async (id: string): Promise<void> => {
+    const response = await fetch(`${BACKEND_URL}/fridge/categories/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante l'eliminazione");
+    }
   },
 };

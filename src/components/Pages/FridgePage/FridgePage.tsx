@@ -1,20 +1,20 @@
-import { Box, Button, HStack, Input, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Icon, Text } from "@chakra-ui/react";
 import "./FridgePage.scss";
-import { useEffect, useRef, useState } from "react";
-import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header/Header";
-import { Api, FridgeItem } from "@/components/Api";
+import { Api, FridgeCategory, FridgeItem } from "@/components/Api";
 import { toaster } from "@/components/ui/toaster";
 import FridgeInfo from "@/components/FridgeInfo/FridgeInfo";
+import { useNavigate } from "react-router-dom";
+import { fridgePaths } from "@/components/Router";
+import { HiOutlinePlusCircle } from "react-icons/hi2";
+import { RiCloseLine } from "react-icons/ri";
 
 const FridgePage = () => {
-  const [quantity, setQuantity] = useState(1);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [item, setItem] = useState<FridgeItem>();
-  const [fridgeItems, setFridgeItems] = useState<FridgeItem[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [fridgeCategories, setFridgeCategories] = useState<FridgeCategory[]>(
+    [],
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
@@ -22,8 +22,8 @@ const FridgePage = () => {
 
   const loadData = async () => {
     try {
-      const items = await Api.getFridgeItems();
-      setFridgeItems(items);
+      const categories: FridgeCategory[] = await Api.getFridgeCategories();
+      setFridgeCategories(categories);
     } catch (error: unknown) {
       const message =
         error instanceof Error
@@ -36,50 +36,23 @@ const FridgePage = () => {
     }
   };
 
-  const resetForm = () => {
-    setName("");
-    setDescription("");
-    setQuantity(1);
-    setItem(undefined);
-    setIsEditing(false);
-  };
-  const onIsEditingChange = (item: FridgeItem) => {
-    setIsEditing(true);
-    setName(item.name);
-    setDescription(item.description);
-    setItem(item);
-    setQuantity(item.quantity);
-    inputRef.current?.focus();
+  const onEdit = (item: FridgeItem) => {
+    console.log("IMPLEMENT ME", item);
   };
 
-  const saveFridgeItem = async () => {
-    const index: number = isEditing
-      ? item!.index
-      : fridgeItems
-        ? fridgeItems.length
-        : 0;
-    const fridgeItem: FridgeItem = {
-      id: item?.id,
-      name,
-      quantity,
-      index,
-      description,
-    };
-
+  const onCategoryDelete = async (categoryId: string) => {
     try {
-      if (!isEditing) {
-        await Api.addFridgeItem(fridgeItem);
-      } else {
-        await Api.updateFridgeItem(fridgeItem);
-      }
-      await loadData();
-      resetForm();
-      setIsEditing(false);
+      await Api.deleteFridgeCategory(categoryId);
+      toaster.create({
+        title: "Categoria eliminata",
+        type: "success",
+      });
+      loadData();
     } catch (error: unknown) {
       const message =
         error instanceof Error
           ? error.message
-          : "Errore durante il salvataggio del prodotto";
+          : "Errore durante l'eliminazione della categoria";
       toaster.create({
         title: message,
         type: "error",
@@ -87,96 +60,61 @@ const FridgePage = () => {
     }
   };
 
-  const onQuantityChange = (value: number) => {
-    const newValue: number = quantity + value;
-    const minValue = isEditing ? 0 : 1;
-    if (newValue < minValue) {
-      setQuantity(minValue);
-    } else {
-      setQuantity(newValue);
-    }
-  };
-
-  const getMinusButtonColor = () => {
-    if (isEditing) {
-      return quantity === 0 ? "gray" : "white";
-    } else {
-      return quantity === 1 ? "gray" : "white";
-    }
-  };
-
   return (
     <div>
       <Header goBack={true} />
-      <div className="fridge-container">
+      {fridgeCategories?.map((category) => (
         <Box
           marginTop={5}
+          borderRadius={8}
           borderColor="gray.800"
           borderWidth={1.5}
-          padding={5}
-          borderRadius={8}
-          className="fridge-form"
+          borderLeftWidth={"1em"}
+          borderLeftColor={category.color}
         >
-          <VStack>
-            <HStack gap={7} width={"100%"}>
-              <Input
-                ref={inputRef}
-                placeholder="Nome prodotto"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <HStack gap={5}>
-                <FiMinusCircle
-                  size={25}
-                  onClick={() => onQuantityChange(-1)}
-                  color={getMinusButtonColor()}
-                />
+          <Box padding={5} backgroundColor={"black"}>
+            <HStack width={"100%"} justify="space-between">
+              <HStack justifyContent={"flex-start"} />
+              <HStack justifyContent={"center"}>
                 <Text fontSize={"xl"} fontWeight={"semibold"}>
-                  {quantity}
+                  {category.name}
                 </Text>
-                <FiPlusCircle size={25} onClick={() => onQuantityChange(1)} />
+              </HStack>
+              <HStack justifyContent={"flex-end"}>
+                <Icon
+                  onClick={() => onCategoryDelete(category.id!)}
+                  className="fridge-category-delete"
+                  color="white"
+                  fontSize={25}
+                >
+                  <RiCloseLine size={25} />
+                </Icon>
               </HStack>
             </HStack>
-            <HStack gap={10} width={"100%"}>
-              <Input
-                placeholder="Descrizione"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+          </Box>
+          <hr />
+          {!category.items?.length && (
+            <Text color="gray.500" fontStyle={"italic"} padding={5}>
+              Non ci sono prodotti in frigo, aggiungine uno!
+            </Text>
+          )}
+          {category.items?.map((item, index) => (
+            <>
+              <FridgeInfo
+                key={item.index}
+                item={item}
+                onReload={loadData}
+                onEdit={onEdit}
               />
-              <Button
-                colorPalette={isEditing ? "purple" : "cyan"}
-                onClick={saveFridgeItem}
-              >
-                {isEditing ? "Modifica" : "Aggiungi"}
-              </Button>
-            </HStack>
-          </VStack>
+              {index !== category.items!.length - 1 && <hr />}
+            </>
+          ))}
         </Box>
-      </div>
-      <Box
-        marginTop={5}
-        borderRadius={8}
-        borderColor="gray.800"
-        borderWidth={1.5}
-        borderLeftWidth={"1em"}
-        borderLeftColor={"blue.600"}
-      >
-        {!fridgeItems.length && (
-          <Text color="gray.500" fontStyle={"italic"} padding={5}>
-            Non ci sono prodotti in frigo, aggiungine uno!
-          </Text>
-        )}
-        {fridgeItems.map((item, index) => (
-          <>
-            <FridgeInfo
-              key={item.index}
-              item={item}
-              onEdit={onIsEditingChange}
-              onReload={loadData}
-            />
-            {index !== fridgeItems.length - 1 && <hr />}
-          </>
-        ))}
+      ))}
+      <Box className="add-fridge" onClick={() => navigate(fridgePaths.insert)}>
+        <Icon fontSize={50} color="whiteAlpha.300">
+          <HiOutlinePlusCircle size={50} />
+        </Icon>
       </Box>
     </div>
   );

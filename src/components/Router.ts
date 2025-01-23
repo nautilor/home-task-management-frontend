@@ -5,6 +5,7 @@ import InsertElement from "./Pages/InsertElement/InsertElement";
 import RewardPage from "./Pages/RewardPage/RewardPage";
 import HomePage from "./Pages/HomePage/HomePage";
 import FridgePage from "./Pages/FridgePage/FridgePage";
+import InsertFridge from "./Pages/InsertFridge/InsertFridge";
 
 export const householdPaths = {
   home: "/household",
@@ -15,6 +16,7 @@ export const householdPaths = {
 
 export const fridgePaths = {
   home: "/fridge",
+  insert: "/fridge/insert",
 };
 
 export const genericPaths = {
@@ -45,5 +47,9 @@ export const router = createBrowserRouter([
   {
     path: fridgePaths.home,
     Component: FridgePage,
+  },
+  {
+    path: fridgePaths.insert,
+    Component: InsertFridge,
   },
 ]);
