@@ -19,12 +19,18 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { LuSave } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
-const InsertTask = () => {
+interface InsertTaskProps {
+  task?: Task;
+}
+
+const InsertTask = (props: InsertTaskProps) => {
+  const { task } = props;
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [points, setPoints] = useState(1);
-  const [frequency, setFrequency] = useState("");
-  const [category, setCategory] = useState<Category | null>(null);
+  const [name, setName] = useState(task?.name || "");
+  const [points, setPoints] = useState(task?.points || 0);
+  const [category, setCategory] = useState<Category | null>(
+    task?.category || null,
+  );
   const [categories, setCategories] = useState<Category[]>([]);
   const [onError, setOnError] = useState<string[]>([]); // list containing the fields with errors
   const [collection, setCollection] = useState<ListCollection<Category>>(
@@ -67,16 +73,6 @@ const InsertTask = () => {
     }
   };
 
-  const onFrequencyChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newFrequency = e.target.value;
-    setFrequency(newFrequency);
-    if (newFrequency === "") {
-      setOnError([...onError, "frequency"]);
-    } else {
-      setOnError(onError.filter((field: string) => field !== "frequency"));
-    }
-  };
-
   const onCategoryChange = (e: SelectValueChangeDetails<Category>) => {
     const categoryId = e.value.find(() => true);
     const selectedCategory: Category = categories.find(
@@ -94,14 +90,9 @@ const InsertTask = () => {
       setOnError([...onError, "points"]);
       return;
     }
-    if (!frequency) {
-      setOnError([...onError, "frequency"]);
-      return;
-    }
     const task: Task = {
       name,
       points,
-      frequency,
       category: category!,
     };
     try {
@@ -150,26 +141,11 @@ const InsertTask = () => {
           />
         </NumberInput.Root>
       </FieldRoot>
-      <FieldRoot
-        style={{ marginTop: "1rem" }}
-        invalid={onError.includes("frequency")}
-      >
-        <Text
-          color={onError.includes("frequency") ? "red" : "white"}
-          fontWeight={"bold"}
-        >
-          Frequenza {onError.includes("frequency") ? "(obbligatorio)" : ""}
-        </Text>
-        <Input
-          value={frequency}
-          onChange={onFrequencyChange}
-          placeholder="Frequenza del task"
-        />
-      </FieldRoot>
       <SelectRoot
         style={{ marginTop: "1rem", alignItems: "flex-start" }}
         collection={collection}
         onValueChange={onCategoryChange}
+        value={category ? [category.id!] : []}
       >
         <Text
           style={{ alignItems: "flex-start", justifyContent: "flex-start" }}

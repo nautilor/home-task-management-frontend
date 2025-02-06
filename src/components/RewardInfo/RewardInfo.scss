@@ -1,4 +1,5 @@
-.task-container {
+.reward-container {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -15,19 +16,19 @@
   }
 }
 
-.taskinfo {
+.rewardinfo {
   padding-left: 2em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.taskpoints {
+.rewardpoints {
   font-size: 18px;
   margin-top: 0.2em;
 }
 
-.taskusersections {
+.rewardusersections {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -38,7 +39,7 @@
   }
 }
 
-.taskusersection {
+.rewardusersection {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -49,7 +50,7 @@
   }
 }
 
-.taskcompletebutton {
+.rewardcompletebutton {
   border-radius: 20px;
   width: 115px;
   padding: 0.5em 1em;
@@ -57,9 +58,23 @@
 }
 
 
-.taskundobutton {
+.rewardundobutton {
   border-radius: 20px;
   padding: 0.5em 1em;
   cursor: pointer;
   margin-left: 0.5em;
+}
+
+.rewardediticon {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  transition: background-color 0.3s;
+  color: #FFFFFF;
+  &:hover {
+    color: #FFFFFFAA;
+  }
+  &:active {
+    color: #FFFFFFAA;
+  }
 }

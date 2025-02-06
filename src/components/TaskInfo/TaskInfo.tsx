@@ -2,7 +2,9 @@ import { Badge, Button, Text } from "@chakra-ui/react";
 import { Task, User } from "../Api";
 import "./TaskInfo.scss";
 import { LuUndo } from "react-icons/lu";
-import { FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle, FiEdit } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { householdPaths } from "../Router";
 
 interface TaskInfoProps {
   task: Task;
@@ -15,6 +17,7 @@ interface TaskInfoProps {
 
 const TaskInfo = (props: TaskInfoProps) => {
   const { task, users } = props;
+  const navigate = useNavigate();
 
   const renderUserActions = (user: User) => {
     const userHasCompletedTask = task.completions!.find(
@@ -58,6 +61,14 @@ const TaskInfo = (props: TaskInfoProps) => {
         borderLeft: `1em solid ${task.category.color}`,
       }}
     >
+      <div
+        className="taskediticon"
+        onClick={() =>
+          navigate(householdPaths.editTask.replace(":taskId", task.id!))
+        }
+      >
+        <FiEdit size={25} />
+      </div>
       <div className="taskinfo">
         <Text fontSize={"xl"} fontWeight={"semibold"}>
           {task.name}

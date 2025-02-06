@@ -66,7 +66,10 @@ export const Api = {
     const response = await fetch(`${BACKEND_URL}/tasks${query}`);
     return response.json();
   },
-
+  getTask: async (taskId: string): Promise<Task> => {
+    const response = await fetch(`${BACKEND_URL}/tasks/${taskId}`);
+    return response.json();
+  },
   addTask: async (task: Omit<Task, "id" | "completions">): Promise<Task> => {
     const response = await fetch(`${BACKEND_URL}/tasks`, {
       method: "POST",
@@ -131,6 +134,11 @@ export const Api = {
     return response.json();
   },
 
+  getReward: async (id: string): Promise<Reward> => {
+    const response = await fetch(`${BACKEND_URL}/rewards/${id}`);
+    return response.json();
+  },
+
   addReward: async (reward: Reward): Promise<Reward> => {
     const response = await fetch(`${BACKEND_URL}/rewards`, {
       method: "POST",
@@ -148,7 +156,7 @@ export const Api = {
 
   updateReward: async (reward: Reward): Promise<Reward> => {
     const response = await fetch(`${BACKEND_URL}/rewards/${reward.id}`, {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reward),
     });

@@ -54,7 +54,7 @@ const RewardContainer = (props: RewardContainerProps) => {
       {rewards.map((reward) => (
         <RewardInfo
           key={reward.id}
-          task={reward}
+          reward={reward}
           users={users}
           onRewardRedeemed={onRewardRedeemed}
           onRewardDelete={onRewardDelete}

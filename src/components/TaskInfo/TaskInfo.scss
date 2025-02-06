@@ -1,4 +1,5 @@
 .task-container {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -62,4 +63,18 @@
   padding: 0.5em 1em;
   cursor: pointer;
   margin-left: 0.5em;
+}
+
+.taskediticon {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  transition: background-color 0.3s;
+  color: #FFFFFF;
+  &:hover {
+    color: #FFFFFFAA;
+  }
+  &:active {
+    color: #FFFFFFAA;
+  }
 }

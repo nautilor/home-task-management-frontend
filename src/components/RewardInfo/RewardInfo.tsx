@@ -2,10 +2,12 @@ import { Badge, Button, Text } from "@chakra-ui/react";
 import { Reward, User } from "../Api";
 import "./RewardInfo.scss";
 import { LuUndo } from "react-icons/lu";
-import { FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle, FiEdit } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { householdPaths } from "../Router";
 
 interface RewardInfoProps {
-  task: Reward;
+  reward: Reward;
   users: User[];
   onRewardRedeemed: (reward: Reward, user: User) => void;
   onRewardDelete: (reward: Reward) => void;
@@ -14,7 +16,8 @@ interface RewardInfoProps {
 }
 
 const RewardInfo = (props: RewardInfoProps) => {
-  const { task: reward, users } = props;
+  const { reward, users } = props;
+  const navigate = useNavigate();
 
   const renderUserActions = (user: User) => {
     const userHasRewards = reward.rewarded!.find(
@@ -24,9 +27,9 @@ const RewardInfo = (props: RewardInfoProps) => {
       (reward) => reward.user.id === user.id,
     ).length;
     return (
-      <div className="taskusersection">
+      <div className="rewardusersection">
         <Button
-          className="taskcompletebutton"
+          className="rewardcompletebutton"
           colorScheme="green"
           onClick={() => props.onRewardRedeemed(reward, user)}
           colorPalette={"green"}
@@ -37,7 +40,7 @@ const RewardInfo = (props: RewardInfoProps) => {
         </Button>
         {userHasRewards && (
           <Button
-            className="taskundobutton"
+            className="rewardundobutton"
             onClick={() => props.onRewardUndo(reward, user)}
             colorScheme="red"
             colorPalette={"red"}
@@ -53,12 +56,21 @@ const RewardInfo = (props: RewardInfoProps) => {
 
   return (
     <div
-      className="task-container"
+      className="reward-container"
       style={{
         borderLeft: `1em solid ${reward.color}`,
       }}
     >
-      <div className="taskinfo">
+      <div
+        className="rewardediticon"
+        onClick={() =>
+          navigate(householdPaths.editReward.replace(":rewardId", reward.id!))
+        }
+      >
+        <FiEdit size={25} />
+      </div>
+
+      <div className="rewardinfo">
         <Text fontSize={"xl"} fontWeight={"semibold"}>
           {reward.name}
         </Text>
@@ -74,14 +86,14 @@ const RewardInfo = (props: RewardInfoProps) => {
         <Text
           fontSize={"md"}
           fontWeight={"medium"}
-          className="taskpoints"
+          className="rewardpoints"
           color={"red.500"}
         >
           {reward.points} punti
         </Text>
-        <div className="taskusersections">
+        <div className="rewardusersections">
           {users.map((user) => (
-            <div key={user.id} className="taskuser">
+            <div key={user.id} className="rewarduser">
               {renderUserActions(user)}
             </div>
           ))}

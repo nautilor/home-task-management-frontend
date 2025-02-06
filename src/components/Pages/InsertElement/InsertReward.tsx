@@ -6,11 +6,16 @@ import { ChangeEvent, useState } from "react";
 import { LuSave } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
-const InsertReward = () => {
+interface InsertRewardProps {
+  reward?: Reward;
+}
+
+const InsertReward = (props: InsertRewardProps) => {
+  const { reward } = props;
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [points, setPoints] = useState(1);
-  const [color, setColor] = useState("#B28DFF");
+  const [name, setName] = useState(reward?.name || "");
+  const [points, setPoints] = useState(reward?.points || 1);
+  const [color, setColor] = useState(reward?.color || "#22DDCC");
   const [onError, setOnError] = useState<string[]>([]); // list containing the fields with errors
 
   const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,14 +47,16 @@ const InsertReward = () => {
       setOnError([...onError, "points"]);
     }
     try {
-      const reward: Reward = {
+      const formReward: Reward = {
         name,
         color,
         points,
         rewarded: [],
       };
-      await Api.addReward(reward);
-      navigate(householdPaths.home);
+      await (reward
+        ? Api.updateReward({ id: reward!.id, ...formReward })
+        : Api.addReward(formReward));
+      navigate(reward ? householdPaths.rewards : householdPaths.home);
     } catch (error) {
       const message =
         error instanceof Error
