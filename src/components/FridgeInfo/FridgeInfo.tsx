@@ -24,7 +24,7 @@ const FridgeInfo = (props: FridgeInfoProps) => {
   const backgroundColor = item.quantity === 0 ? "gray.900" : "black";
   const mainTextColor = item.quantity === 0 ? "gray.500" : "white";
   const descriptionColor = item.quantity === 0 ? "gray.700" : "gray.500";
-  const minusColor = item.quantity === 0 ? "gray" : "white";
+  const minusColor = item.quantity === 0 ? "gray" : "lime";
 
   return (
     <Box padding="5" backgroundColor={backgroundColor}>
@@ -37,18 +37,18 @@ const FridgeInfo = (props: FridgeInfoProps) => {
         </VStack>
         <HStack gap={6}>
           <HStack gap={4}>
-            <Icon color={minusColor} size="xl">
+            <Icon className={"fridgeitembutton"} color={minusColor} size="xl">
               <FiMinusCircle size={25} onClick={() => onQuantityChange(-1)} />
             </Icon>
             <Text fontWeight={"semibold"}>{item.quantity}</Text>
-            <Icon color="white" size="xl">
+            <Icon className={"fridgeitembutton"} color="lime" size="xl">
               <FiPlusCircle onClick={() => onQuantityChange(1)} />
             </Icon>
           </HStack>
-          <Icon color="blue.500" size="xl">
+          <Icon className={"fridgeitembutton"} color="white.500" size="xl">
             <FiEdit onClick={() => onEdit(item)} />
           </Icon>
-          <Icon color="red.500" size="xl">
+          <Icon className={"fridgeitembutton"} color="red.500" size="xl">
             <FiTrash
               onClick={() => Api.deleteFridgeItem(item.id!).then(onReload)}
             />
