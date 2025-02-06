@@ -18,7 +18,6 @@ export interface Task {
   name: string;
   category: Category;
   points: number;
-  frequency: string;
   completions?: Completion[];
 }
 
