@@ -97,7 +97,11 @@ const InsertTask = (props: InsertTaskProps) => {
     };
     try {
       await Api.addTask(task);
-      navigate(householdPaths.home);
+      navigate(
+        task
+          ? householdPaths.category.replace(":categoryId", task.category.id!)
+          : householdPaths.home,
+      );
     } catch (e) {
       console.error(e);
     }
