@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Api, Task } from "@/components/Api";
 import { useCallback, useEffect, useState } from "react";
 import InsertTask from "../InsertElement/InsertTask";
+import { householdPaths } from "@/components/Router";
 
 const TaskEditPage = () => {
   const { taskId } = useParams();
@@ -20,7 +21,14 @@ const TaskEditPage = () => {
 
   return (
     <div>
-      <Header goBack />
+      {task && (
+        <Header
+          goBack={householdPaths.category.replace(
+            ":categoryId",
+            task!.category.id!,
+          )}
+        />
+      )}
       {task && <InsertTask task={task} />}
     </div>
   );

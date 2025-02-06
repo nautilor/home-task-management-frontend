@@ -4,11 +4,12 @@ import InsertTask from "./InsertTask";
 import Header from "@/components/Header/Header";
 import "./InsertElement.scss";
 import InsertReward from "./InsertReward";
+import { householdPaths } from "@/components/Router";
 
 const InsertElement = () => {
   return (
     <div>
-      <Header goBack={true} />
+      <Header goBack={householdPaths.home} />
       <Tabs.Root defaultValue={"category"}>
         <Tabs.List>
           <Tabs.Trigger value="category">Categoria</Tabs.Trigger>

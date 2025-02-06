@@ -3,11 +3,12 @@ import Header from "@/components/Header/Header";
 import InsertFridgeCategory from "./InsertFridgeCategory";
 import "./InsertFridge.scss";
 import InsertFridgeProduct from "./InsertFridgeProduct";
+import { fridgePaths } from "@/components/Router";
 
 const InsertFridge = () => {
   return (
     <div>
-      <Header goBack={true} />
+      <Header goBack={fridgePaths.home} />
       <Tabs.Root defaultValue={"category"}>
         <Tabs.List>
           <Tabs.Trigger value="category">Categoria</Tabs.Trigger>

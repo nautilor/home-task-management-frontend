@@ -6,7 +6,7 @@ import { householdPaths } from "../Router";
 
 interface HeaderProps {
   onEditClick?: () => void;
-  goBack?: boolean;
+  goBack?: string;
   hideRewards?: boolean;
   children?: React.ReactNode;
 }
@@ -16,7 +16,7 @@ const Header = (props: HeaderProps) => {
   const hideRewards = props.hideRewards ?? true;
   const children = props.children;
   const hideEditButton = props.onEditClick === undefined;
-  const goBack = props.goBack ?? false;
+  const goBack = props.goBack;
 
   const toggleFullSceen = (): void => {
     if (!document.fullscreenElement) {
@@ -33,7 +33,10 @@ const Header = (props: HeaderProps) => {
       <div className={"header-container"}>
         <div className="header-left-controls">
           {goBack ? (
-            <div className="header-back-button" onClick={() => navigate(-1)}>
+            <div
+              className="header-back-button"
+              onClick={() => navigate(goBack)}
+            >
               <LuArrowLeft size={25} />
             </div>
           ) : (

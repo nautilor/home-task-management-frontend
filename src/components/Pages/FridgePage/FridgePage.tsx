@@ -6,7 +6,7 @@ import { Api, FridgeCategory, FridgeItem } from "@/components/Api";
 import { toaster } from "@/components/ui/toaster";
 import FridgeInfo from "@/components/FridgeInfo/FridgeInfo";
 import { useNavigate } from "react-router-dom";
-import { fridgePaths } from "@/components/Router";
+import { fridgePaths, genericPaths } from "@/components/Router";
 import { HiOutlinePlusCircle } from "react-icons/hi2";
 import { RiCloseLine } from "react-icons/ri";
 
@@ -62,7 +62,7 @@ const FridgePage = () => {
 
   return (
     <div>
-      <Header goBack={true} />
+      <Header goBack={genericPaths.home} />
       {fridgeCategories?.map((category) => (
         <Box
           marginTop={5}

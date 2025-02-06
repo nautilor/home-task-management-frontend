@@ -5,6 +5,7 @@ import { Api, Task, User } from "../../Api.ts";
 import TaskContainer from "../../TaskContainer/TaskContainer.tsx";
 import "./TaskPage.scss";
 import { useParams } from "react-router-dom";
+import { householdPaths } from "@/components/Router.ts";
 
 const TaskPage = () => {
   const { categoryId } = useParams();
@@ -31,7 +32,7 @@ const TaskPage = () => {
 
   return (
     <div>
-      <Header goBack={true}>
+      <Header goBack={householdPaths.home}>
         <div className={"user-info-container"}>{renderUsers()}</div>
       </Header>
       <TaskContainer users={users} onReload={onReload} tasks={tasks} />

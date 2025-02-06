@@ -4,6 +4,7 @@ import InsertReward from "../InsertElement/InsertReward";
 import { useParams } from "react-router-dom";
 import { Api, Reward } from "@/components/Api";
 import { useCallback, useEffect, useState } from "react";
+import { householdPaths } from "@/components/Router";
 
 const RewardEditPage = () => {
   const { rewardId } = useParams();
@@ -20,7 +21,7 @@ const RewardEditPage = () => {
 
   return (
     <div>
-      <Header goBack />
+      <Header goBack={householdPaths.rewards} />
       {reward && <InsertReward reward={reward} />}
     </div>
   );

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Api, Reward, User } from "../../Api.ts";
 import "./RewardPage.scss";
 import RewardContainer from "@/components/RewardContainer/RewardContainer.tsx";
+import { householdPaths } from "@/components/Router.ts";
 
 const RewardPage = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -29,7 +30,7 @@ const RewardPage = () => {
 
   return (
     <div>
-      <Header goBack={true}>
+      <Header goBack={householdPaths.home}>
         <div className={"user-info-container"}>{renderUsers()}</div>
       </Header>
       <RewardContainer users={users} onReload={onReload} rewards={rewards} />
