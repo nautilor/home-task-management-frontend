@@ -41,7 +41,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 5em;
+  width: 10em;
   flex-grow: 1;
   padding: 10px;
   cursor: pointer;
@@ -69,11 +69,12 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 25em;
+  min-width: 25em;
+  max-width: 40em;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
+    max-width: 100%;
     height: auto;
     align-items: center;
   }
