@@ -61,7 +61,8 @@ const HomePage = () => {
           padding={4}
           borderColor="gray.800"
           borderWidth={1.5}
-          width={"50em"}
+          position={"relative"}
+          className="custom-elements-container"
         >
           {elements.length > 0 && (
             <HStack

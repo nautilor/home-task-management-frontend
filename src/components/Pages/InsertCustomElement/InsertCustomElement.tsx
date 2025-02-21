@@ -62,7 +62,17 @@ const InsertCustomElement = () => {
           <Input
             value={name}
             onChange={onNameChange}
-            placeholder="Nome della categoria"
+            placeholder="Nome dell'elemento"
+          />
+        </FieldRoot>
+        <FieldRoot marginTop={"1em"} invalid={actionError}>
+          <Text color={actionError ? "red" : "white"} fontWeight={"bold"}>
+            Azione {actionError ? "(obbligatorio)" : ""}
+          </Text>
+          <Input
+            value={action}
+            onChange={onActionChange}
+            placeholder="Azione"
           />
         </FieldRoot>
         <FieldRoot marginTop={"1em"}>
@@ -74,17 +84,6 @@ const InsertCustomElement = () => {
             value={color}
             onChange={(e) => setColor(e.target.value)}
             placeholder="Inserisci il colore della categoria"
-          />
-        </FieldRoot>
-
-        <FieldRoot marginTop={"1em"} invalid={actionError}>
-          <Text color={actionError ? "red" : "white"} fontWeight={"bold"}>
-            Azione {actionError ? "(obbligatorio)" : ""}
-          </Text>
-          <Input
-            value={action}
-            onChange={onActionChange}
-            placeholder="Azione"
           />
         </FieldRoot>
         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"2em"}>

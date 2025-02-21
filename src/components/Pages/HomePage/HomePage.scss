@@ -64,6 +64,21 @@
 }
 
 
+.custom-elements-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 25em;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    align-items: center;
+  }
+}
+
 
 .add-custom-element {
   display: flex;
@@ -72,7 +87,8 @@
   align-items: center;
   border: 1.5px dashed #F5F5F530;
   height: 4em;
-  border-radius: 10px;
+  width: 100vw;
+  border-radius: 8px;
   padding: 20px;
   cursor: pointer;
   @media (max-width: 768px) {
@@ -81,7 +97,6 @@
     width: 100%;
     height: auto;
     align-items: center;
-    margin-top:  1em;
   }
 }
 
