@@ -61,31 +61,34 @@ const HomePage = () => {
           padding={4}
           borderColor="gray.800"
           borderWidth={1.5}
+          width={"50em"}
         >
-          <HStack
-            justifyContent={"center"}
-            alignItems={"center"}
-            wrap={"wrap"}
-            flexDirection={"row"}
-          >
-            {elements.map((element) => (
-              <Box
-                position="relative"
-                className="home-function-custom-button"
-                onClick={() => window.open(element.action, "_blank")}
-                borderRadius={8}
-                borderColor="gray.800"
-                borderWidth={1.5}
-                borderLeftWidth={"1em"}
-                borderLeftColor={element.color}
-              >
-                <Text color="white" fontSize={"l"} fontWeight={"semibold"}>
-                  {element.name}
-                </Text>
-              </Box>
-            ))}
-          </HStack>
-
+          {elements.length > 0 && (
+            <HStack
+              justifyContent={"center"}
+              alignItems={"center"}
+              wrap={"wrap"}
+              flexDirection={"row"}
+              marginBottom={4}
+            >
+              {elements.map((element) => (
+                <Box
+                  position="relative"
+                  className="home-function-custom-button"
+                  onClick={() => window.open(element.action, "_blank")}
+                  borderRadius={8}
+                  borderColor="gray.800"
+                  borderWidth={1.5}
+                  borderLeftWidth={"1em"}
+                  borderLeftColor={element.color}
+                >
+                  <Text color="white" fontSize={"l"} fontWeight={"semibold"}>
+                    {element.name}
+                  </Text>
+                </Box>
+              ))}
+            </HStack>
+          )}
           <Box
             className="add-custom-element"
             onClick={() => navigate(elementPaths.insert)}
