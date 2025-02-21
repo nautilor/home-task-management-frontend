@@ -59,6 +59,14 @@ export interface FridgeItem {
   category: FridgeCategory;
 }
 
+export interface CustomElement {
+  id?: string;
+  name: string;
+  color: string;
+  type: "url";
+  action: string;
+}
+
 export const Api = {
   getTasks: async (categoryId?: string): Promise<Task[]> => {
     const query = categoryId ? `?categoryId=${categoryId}` : "";
@@ -284,6 +292,39 @@ export const Api = {
   },
   deleteFridgeCategory: async (id: string): Promise<void> => {
     const response = await fetch(`${BACKEND_URL}/fridge/categories/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante l'eliminazione");
+    }
+  },
+  getCustomElements: async (): Promise<CustomElement[]> => {
+    const response = await fetch(`${BACKEND_URL}/elements`);
+    return response.json();
+  },
+  addCustomElement: async (element: CustomElement): Promise<CustomElement> => {
+    const response = await fetch(`${BACKEND_URL}/elements`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(element),
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante il salvataggio");
+    }
+    return response.json();
+  },
+  updateCustomElement: async (
+    element: CustomElement,
+  ): Promise<CustomElement> => {
+    const response = await fetch(`${BACKEND_URL}/elements/${element.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(element),
+    });
+    return response.json();
+  },
+  deleteCustomElement: async (id: string): Promise<void> => {
+    const response = await fetch(`${BACKEND_URL}/elements/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {

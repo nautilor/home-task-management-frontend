@@ -8,6 +8,7 @@ import FridgePage from "./Pages/FridgePage/FridgePage";
 import InsertFridge from "./Pages/InsertFridge/InsertFridge";
 import RewardEditPage from "./Pages/RewardEditPage/RewardEditPage";
 import TaskEditPage from "./Pages/TaskEditPage/TaskEditPage";
+import InsertCustomElement from "./Pages/InsertCustomElement/InsertCustomElement";
 
 export const householdPaths = {
   home: "/household",
@@ -25,6 +26,11 @@ export const fridgePaths = {
 
 export const genericPaths = {
   home: "/",
+};
+
+export const elementPaths = {
+  insert: "/element/insert",
+  edit: "/element/edit/:elementId?",
 };
 
 export const router = createBrowserRouter([
@@ -63,5 +69,9 @@ export const router = createBrowserRouter([
   {
     path: fridgePaths.insert,
     Component: InsertFridge,
+  },
+  {
+    path: elementPaths.insert,
+    Component: InsertCustomElement,
   },
 ]);
