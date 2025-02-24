@@ -67,6 +67,19 @@ export interface CustomElement {
   action: string;
 }
 
+export interface Vegetable {
+  id?: string;
+  name: string;
+  recipes?: Recipe[];
+}
+
+export interface Recipe {
+  id?: string;
+  name: string;
+  description?: string;
+  vegetables: Vegetable[];
+}
+
 export const Api = {
   getTasks: async (categoryId?: string): Promise<Task[]> => {
     const query = categoryId ? `?categoryId=${categoryId}` : "";
@@ -325,6 +338,76 @@ export const Api = {
   },
   deleteCustomElement: async (id: string): Promise<void> => {
     const response = await fetch(`${BACKEND_URL}/elements/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante l'eliminazione");
+    }
+  },
+  getVegetables: async (): Promise<Vegetable[]> => {
+    const response = await fetch(`${BACKEND_URL}/vegetables`);
+    return response.json();
+  },
+  getVegetable: async (id: string): Promise<Vegetable> => {
+    const response = await fetch(`${BACKEND_URL}/vegetables/${id}`);
+    return response.json();
+  },
+  addVegetable: async (vegetable: Vegetable): Promise<Vegetable> => {
+    const response = await fetch(`${BACKEND_URL}/vegetables`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(vegetable),
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante il salvataggio");
+    }
+    return response.json();
+  },
+  updateVegetable: async (vegetable: Vegetable): Promise<Vegetable> => {
+    const response = await fetch(`${BACKEND_URL}/vegetables/${vegetable.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(vegetable),
+    });
+    return response.json();
+  },
+  deleteVegetable: async (id: string): Promise<void> => {
+    const response = await fetch(`${BACKEND_URL}/vegetables/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante l'eliminazione");
+    }
+  },
+  getRecipes: async (): Promise<Recipe[]> => {
+    const response = await fetch(`${BACKEND_URL}/recipes`);
+    return response.json();
+  },
+  getRecipe: async (id: string): Promise<Recipe> => {
+    const response = await fetch(`${BACKEND_URL}/recipes/${id}`);
+    return response.json();
+  },
+  addRecipe: async (recipe: Recipe): Promise<Recipe> => {
+    const response = await fetch(`${BACKEND_URL}/recipes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recipe),
+    });
+    if (!response.ok) {
+      throw new Error("Errore durante il salvataggio");
+    }
+    return response.json();
+  },
+  updateRecipe: async (recipe: Recipe): Promise<Recipe> => {
+    const response = await fetch(`${BACKEND_URL}/recipes/${recipe.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recipe),
+    });
+    return response.json();
+  },
+  deleteRecipe: async (id: string): Promise<void> => {
+    const response = await fetch(`${BACKEND_URL}/recipes/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {

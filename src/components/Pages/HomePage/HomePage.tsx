@@ -1,8 +1,13 @@
 import { Box, HStack, Icon, Text } from "@chakra-ui/react";
 import "./HomePage.scss";
 import { useNavigate } from "react-router-dom";
-import { elementPaths, fridgePaths, householdPaths } from "@/components/Router";
-import { FaHouseUser } from "react-icons/fa6";
+import {
+  elementPaths,
+  fridgePaths,
+  householdPaths,
+  vegetablePaths,
+} from "@/components/Router";
+import { FaCarrot, FaHouseUser } from "react-icons/fa6";
 import { FaSnowflake } from "react-icons/fa";
 import Header from "@/components/Header/Header";
 import { useEffect, useState } from "react";
@@ -53,6 +58,17 @@ const HomePage = () => {
           >
             <Icon color="black" fontSize={100}>
               <FaSnowflake />
+            </Icon>
+          </Box>
+          <Box
+            bgGradient="to-tl"
+            gradientFrom="green.700"
+            gradientTo="green.100"
+            className="home-function-button"
+            onClick={() => navigate(vegetablePaths.home)}
+          >
+            <Icon color="black" fontSize={100}>
+              <FaCarrot />
             </Icon>
           </Box>
         </HStack>
