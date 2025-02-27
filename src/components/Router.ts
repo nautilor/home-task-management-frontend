@@ -10,6 +10,7 @@ import RewardEditPage from "./Pages/RewardEditPage/RewardEditPage";
 import TaskEditPage from "./Pages/TaskEditPage/TaskEditPage";
 import InsertCustomElement from "./Pages/InsertCustomElement/InsertCustomElement";
 import VegetablePage from "./Pages/VegetablePage/VegetablePage";
+import RecipePage from "./Pages/RecipePage/RecipePage";
 
 export const householdPaths = {
   home: "/household",
@@ -42,8 +43,8 @@ export const vegetablePaths = {
 
 export const recipePaths = {
   home: "/recipe",
+  view: "/recipe/view/:recipeId?",
   insert: "/recipe/insert",
-  vegetable: "/recipe/vegetable/:vegetableId?",
   edit: "/recipe/edit/:recipeId?",
 };
 
@@ -91,5 +92,9 @@ export const router = createBrowserRouter([
   {
     path: vegetablePaths.home,
     Component: VegetablePage,
+  },
+  {
+    path: recipePaths.view,
+    Component: RecipePage,
   },
 ]);

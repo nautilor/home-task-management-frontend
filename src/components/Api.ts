@@ -77,6 +77,7 @@ export interface Recipe {
   id?: string;
   name: string;
   description?: string;
+  extra?: boolean;
   vegetables: Vegetable[];
 }
 

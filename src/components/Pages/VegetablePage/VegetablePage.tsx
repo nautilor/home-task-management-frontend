@@ -20,20 +20,7 @@ const VegetablePage = () => {
   return (
     <div>
       <Header goBack={genericPaths.home} />
-      <Box
-        marginTop={5}
-        borderRadius={8}
-        borderColor="gray.800"
-        borderWidth={1.5}
-        borderLeftWidth={"1em"}
-        borderLeftColor={"green.500"}
-      >
-        <Box padding={5} backgroundColor={"black"} justifyContent={"center"}>
-          <Text fontSize={"xl"} fontWeight={"semibold"}>
-            Verdure
-          </Text>
-        </Box>
-        <hr />
+      <Box>
         {!vegetables?.length && (
           <Text color="gray.500" fontStyle={"italic"} padding={5}>
             Non ci sono verdure in frigo, aggiungine una!
@@ -48,7 +35,6 @@ const VegetablePage = () => {
               onReload={loadVegetables}
               onEdit={() => {}}
             />
-            {index !== vegetables!.length - 1 && <hr />}
           </>
         ))}
       </Box>
