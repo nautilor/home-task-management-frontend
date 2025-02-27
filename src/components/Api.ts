@@ -367,7 +367,7 @@ export const Api = {
   },
   updateVegetable: async (vegetable: Vegetable): Promise<Vegetable> => {
     const response = await fetch(`${BACKEND_URL}/vegetables/${vegetable.id}`, {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(vegetable),
     });
