@@ -74,7 +74,6 @@ const InsertRecipe = (props: InsertRecipeProps) => {
       vegetables: selected!,
     };
     try {
-      console.log(recipe);
       await Api.addRecipe(recipe);
       navigate(vegetablePaths.home);
     } catch (e) {
