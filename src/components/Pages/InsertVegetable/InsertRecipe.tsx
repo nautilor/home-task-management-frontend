@@ -1,5 +1,5 @@
 import { Api, Vegetable, Recipe } from "@/components/Api";
-import { householdPaths, vegetablePaths } from "@/components/Router";
+import { vegetablePaths } from "@/components/Router";
 import {
   Button,
   createListCollection,
