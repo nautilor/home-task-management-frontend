@@ -1,7 +1,7 @@
 import { VStack, Box, Text, HStack, Icon, List } from "@chakra-ui/react";
 import { Api, Recipe, Vegetable } from "@/components/Api";
 import "./VegetableInfo.scss";
-import { FiArrowRightCircle, FiEdit, FiTrash } from "react-icons/fi";
+import { FiArrowRightCircle, FiEdit, FiPlus, FiTrash } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { recipePaths } from "../Router";
 import { FaArrowRight, FaCircleDot } from "react-icons/fa6";
@@ -41,6 +41,13 @@ const VegetableInfo = (props: VegetableInfoProps) => {
         </HStack>
         <HStack gap={6}>
           <Icon className={"vegetablebutton"} color="white.500" size="xl">
+            <FiPlus
+              onClick={() =>
+                navigate(recipePaths.insert.replace(":vegetableId", item.id!))
+              }
+            />
+          </Icon>
+          <Icon className={"vegetablebutton"} color="white.500" size="xl">
             <FiEdit onClick={() => onEdit(item)} />
           </Icon>
           <Icon className={"vegetablebutton"} color="red.500" size="xl">
@@ -57,7 +64,7 @@ const VegetableInfo = (props: VegetableInfoProps) => {
         </Text>
       ) : (
         item.recipes!.map((recipe: Recipe, index: number) => (
-          <>
+          <div key={item.id! + recipe.id!}>
             <HStack padding={5} justifyContent={"space-between"}>
               <HStack justifyContent={"flex-start"}>
                 <Icon size={"xl"} color={"gray.300"}>
@@ -92,7 +99,7 @@ const VegetableInfo = (props: VegetableInfoProps) => {
               )}
             </HStack>
             {index !== item.recipes!.length - 1 && <hr />}
-          </>
+          </div>
         ))
       )}
     </Box>

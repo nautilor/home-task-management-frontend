@@ -354,6 +354,7 @@ export const Api = {
     return response.json();
   },
   addVegetable: async (vegetable: Vegetable): Promise<Vegetable> => {
+    vegetable.recipes = [];
     const response = await fetch(`${BACKEND_URL}/vegetables`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -386,6 +387,9 @@ export const Api = {
   },
   getRecipe: async (id: string): Promise<Recipe> => {
     const response = await fetch(`${BACKEND_URL}/recipes/${id}`);
+    if (!response.ok) {
+      throw new Error("Errore durante il recupero della ricetta");
+    }
     return response.json();
   },
   addRecipe: async (recipe: Recipe): Promise<Recipe> => {
