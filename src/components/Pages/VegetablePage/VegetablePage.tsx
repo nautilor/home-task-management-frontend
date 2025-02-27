@@ -27,13 +27,13 @@ const VegetablePage = () => {
           </Text>
         )}
 
-        {vegetables.map((vegetable, index) => (
+        {vegetables.map((vegetable) => (
           <>
             <VegetableInfo
               key={vegetable.id}
               item={vegetable}
               onReload={loadVegetables}
-              onEdit={() => {}}
+              onEdit={() => console.log("Implement edit for vegetable")}
             />
           </>
         ))}
