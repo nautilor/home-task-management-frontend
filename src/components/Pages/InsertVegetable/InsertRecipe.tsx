@@ -1,5 +1,6 @@
 import { Api, Vegetable, Recipe } from "@/components/Api";
 import { vegetablePaths } from "@/components/Router";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Button,
   createListCollection,
@@ -12,6 +13,7 @@ import {
   SelectTrigger,
   SelectValueText,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { LuSave } from "react-icons/lu";
@@ -26,6 +28,8 @@ const InsertRecipe = (props: InsertRecipeProps) => {
   const navigate = useNavigate();
   const [name, setName] = useState(vegetable?.name || "");
   const [vegetables, setVegetables] = useState<Vegetable[] | null>([]);
+  const [description, setDescription] = useState("");
+  const [extra, setExtra] = useState(false);
   const [selected, setSelected] = useState<Vegetable[]>([]);
   const [onError, setOnError] = useState<string[]>([]); // list containing the fields with errors
   const [collection, setCollection] = useState<ListCollection<Vegetable>>(
@@ -71,6 +75,8 @@ const InsertRecipe = (props: InsertRecipeProps) => {
     }
     const recipe: Recipe = {
       name,
+      description,
+      extra,
       vegetables: selected!,
     };
     try {
@@ -100,7 +106,7 @@ const InsertRecipe = (props: InsertRecipeProps) => {
         <Input
           value={name}
           onChange={onNameChange}
-          placeholder="Nome del task"
+          placeholder="Nome della ricetta"
         />
       </FieldRoot>
       {vegetables && (
@@ -129,6 +135,35 @@ const InsertRecipe = (props: InsertRecipeProps) => {
           </SelectContent>
         </SelectRoot>
       )}
+      <FieldRoot style={{ marginTop: "1rem", alignItems: "flex-start" }}>
+        <Text aria-multiline color={"white"} fontWeight={"bold"}>
+          Descrizione
+        </Text>
+        <Textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Descrizione"
+        />
+      </FieldRoot>
+      <FieldRoot
+        style={{
+          marginTop: "1rem",
+          borderRadius: "8px",
+          borderColor: "gray.800",
+          padding: "1em",
+          width: "fit-content",
+          alignItems: "flex-start",
+        }}
+      >
+        <Checkbox
+          checked={extra}
+          colorPalette={"teal"}
+          onCheckedChange={(e) => setExtra(!!e.checked)}
+        >
+          Schermata extra per la ricetta
+        </Checkbox>
+      </FieldRoot>
+
       <div className="insert-save-button">
         <Button onClick={saveTask} colorPalette="teal">
           <LuSave />
