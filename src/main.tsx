@@ -7,7 +7,11 @@ import App from "./App";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider value={defaultSystem}>
-      <ThemeProvider attribute="class" disableTransitionOnChange>
+      <ThemeProvider
+        defaultTheme="dark"
+        attribute="class"
+        disableTransitionOnChange
+      >
         <App />
       </ThemeProvider>
     </ChakraProvider>
