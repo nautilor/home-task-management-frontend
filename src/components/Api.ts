@@ -81,6 +81,11 @@ export interface Recipe {
   vegetables: Vegetable[];
 }
 
+export interface VegetableParams {
+  name: string;
+  recipeName: string;
+}
+
 export const Api = {
   getTasks: async (categoryId?: string): Promise<Task[]> => {
     const query = categoryId ? `?categoryId=${categoryId}` : "";
@@ -345,8 +350,16 @@ export const Api = {
       throw new Error("Errore durante l'eliminazione");
     }
   },
-  getVegetables: async (): Promise<Vegetable[]> => {
-    const response = await fetch(`${BACKEND_URL}/vegetables`);
+  getVegetables: async (params?: VegetableParams): Promise<Vegetable[]> => {
+    const queryParams: Record<string, string> = {};
+    if (params?.name) {
+      queryParams.name = params.name;
+    }
+    if (params?.recipeName) {
+      queryParams.recipeName = params.recipeName;
+    }
+    const query = params ? new URLSearchParams(queryParams).toString() : "";
+    const response = await fetch(`${BACKEND_URL}/vegetables?${query}`);
     return response.json();
   },
   getVegetable: async (id: string): Promise<Vegetable> => {

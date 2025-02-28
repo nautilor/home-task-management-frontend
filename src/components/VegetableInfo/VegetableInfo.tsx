@@ -1,10 +1,10 @@
-import { VStack, Box, Text, HStack, Icon, List } from "@chakra-ui/react";
+import { VStack, Box, Text, HStack, Icon } from "@chakra-ui/react";
 import { Api, Recipe, Vegetable } from "@/components/Api";
 import "./VegetableInfo.scss";
-import { FiArrowRightCircle, FiEdit, FiPlus, FiTrash } from "react-icons/fi";
+import { FiEdit, FiPlus, FiTrash } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { recipePaths } from "../Router";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaXmark } from "react-icons/fa6";
 import { PiForkKnife } from "react-icons/pi";
 
 interface VegetableInfoProps {
@@ -37,7 +37,6 @@ const VegetableInfo = (props: VegetableInfoProps) => {
       margin={5}
       backgroundColor={"black"}
       borderRadius={8}
-      borderColor="gray.800"
       borderWidth={1.5}
       borderLeftWidth={"1em"}
       borderLeftColor={"green.500"}
@@ -113,7 +112,7 @@ const VegetableInfo = (props: VegetableInfoProps) => {
                   className="vegetablebutton"
                   onClick={() => deleteRecipe(recipe.id!)}
                 >
-                  <FiTrash />
+                  <FaXmark />
                 </Icon>
               </HStack>
             </HStack>

@@ -1,4 +1,4 @@
-import { Api, Vegetable } from "@/components/Api";
+import { Api, Vegetable, VegetableParams } from "@/components/Api";
 import Header from "@/components/Header/Header";
 import { genericPaths, vegetablePaths } from "@/components/Router";
 import VegetableInfo from "@/components/VegetableInfo/VegetableInfo";
@@ -7,13 +7,14 @@ import { useEffect, useState } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import "./VegetablePage.scss";
+import VegetableFilter from "./VegetableFilter";
 
 const VegetablePage = () => {
   const navigate = useNavigate();
   const [vegetables, setVegetables] = useState<Vegetable[]>([]);
 
-  const loadVegetables = async () => {
-    const data: Vegetable[] = await Api.getVegetables();
+  const loadVegetables = async (params?: VegetableParams) => {
+    const data: Vegetable[] = await Api.getVegetables(params);
     setVegetables(data);
   };
 
@@ -24,6 +25,7 @@ const VegetablePage = () => {
   return (
     <div>
       <Header goBack={genericPaths.home} />
+      <VegetableFilter onSubmit={loadVegetables} />
       <Box>
         {!vegetables?.length && (
           <Text color="gray.500" fontStyle={"italic"} padding={5}>
