@@ -34,7 +34,8 @@ const VegetableInfo = (props: VegetableInfoProps) => {
 
   return (
     <Box
-      margin={5}
+      marginTop={5}
+      marginBottom={5}
       backgroundColor={"black"}
       borderRadius={8}
       borderWidth={1.5}

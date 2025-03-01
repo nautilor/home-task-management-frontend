@@ -1,5 +1,5 @@
 import { VegetableParams } from "@/components/Api";
-import { Box, Button, FieldRoot, HStack, Input, Text } from "@chakra-ui/react";
+import { Box, Button, FieldRoot, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
 
 interface VegetableFilterProps {
@@ -22,7 +22,6 @@ const VegetableFilter = (props: VegetableFilterProps) => {
   return (
     <Box
       borderRadius={"8px"}
-      margin={5}
       padding={5}
       borderWidth={"1.5px"}
       borderColor={"gray.800"}
