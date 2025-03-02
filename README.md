@@ -1,16 +1,20 @@
-# React + TypeScript + Vite + Chakra UI
+# House Task Management Frontend
 
-This is a template for a React project with TypeScript, Vite, and Chakra UI.
+Frontend of a personal project that i use to manage various things in my house.
 
-## Features
+It is based off the [Token Economy](https://en.wikipedia.org/wiki/Token_economy) concept.
 
+I run this project on a Raspberry Pi 4 with a PostgreSQL database on my local network so there is not authentication.
+
+## Technologies 
+
+- [Node.js](https://nodejs.org/)
+- [Typescript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
-
-- [TypeScript](https://www.typescriptlang.org/)
-
 - [Vite](https://vitejs.dev/)
-
 - [Chakra UI](https://chakra-ui.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Router](https://reactrouter.com/)
 
 
 ## License
