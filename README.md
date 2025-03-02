@@ -11,3 +11,8 @@ This is a template for a React project with TypeScript, Vite, and Chakra UI.
 - [Vite](https://vitejs.dev/)
 
 - [Chakra UI](https://chakra-ui.com/)
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
