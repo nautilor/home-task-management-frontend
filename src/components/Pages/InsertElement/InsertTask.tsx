@@ -91,12 +91,17 @@ const InsertTask = (props: InsertTaskProps) => {
       return;
     }
     const task: Task = {
+      id: props.task?.id,
       name,
       points,
       category: category!,
     };
     try {
-      await Api.addTask(task);
+      if (props.task) {
+        await Api.updateTask(task);
+      } else {
+        await Api.addTask(task);
+      }
       navigate(
         task
           ? householdPaths.category.replace(":categoryId", task.category.id!)

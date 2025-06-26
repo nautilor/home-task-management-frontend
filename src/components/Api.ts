@@ -104,6 +104,17 @@ export const Api = {
     });
     return response.json();
   },
+  updateTask: async (task: Task): Promise<Task> => {
+    if (!task.id) {
+      throw new Error("Task ID is required for update");
+    }
+    const response = await fetch(`${BACKEND_URL}/tasks/${task.id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    });
+    return response.json();
+  },
 
   deleteTask: async (taskId: string): Promise<void> => {
     await fetch(`${BACKEND_URL}/tasks/${taskId}`, { method: "DELETE" });
